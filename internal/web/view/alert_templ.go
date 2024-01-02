@@ -23,7 +23,7 @@ func Alert(m Map) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		if message, ok := m["Message"].(string); ok {
+		if message, ok := m[MessageKey].(string); ok {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"alert alert-danger text-left\" role=\"alert\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -36,7 +36,7 @@ func Alert(m Map) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(message)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/alert.templ`, Line: 5, Col: 16}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/alert.templ`, Line: 6, Col: 16}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -47,7 +47,7 @@ func Alert(m Map) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		if success, ok := m["Success"].(string); ok {
+		if success, ok := m[SuccessKey].(string); ok {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"alert alert-success text-left\" role=\"alert\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -60,7 +60,7 @@ func Alert(m Map) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(success)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/alert.templ`, Line: 10, Col: 16}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/alert.templ`, Line: 11, Col: 16}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {

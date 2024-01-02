@@ -1,12 +1,11 @@
 package handlers
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
 	"github.com/Devil666face/avzserver/internal/web/view"
-	"github.com/Devil666face/avzserver/pkg/utils"
+	"github.com/Devil666face/avzserver/pkg/file"
 )
 
 func Bases(h *Handler) error {
@@ -21,10 +20,11 @@ func Bases(h *Handler) error {
 	if stat, err := os.Stat(abs); err != nil || !stat.IsDir() {
 		return h.c.Next()
 	}
-	files, err := utils.DirContent(abs)
+	files, err := file.DirContent(abs)
 	if err != nil {
 		return h.c.Next()
 	}
-	fmt.Println(files)
-	return h.Render(view.Index, view.Map{})
+	return h.Render(view.BasesList, view.Map{
+		view.DirContentKey: files,
+	})
 }

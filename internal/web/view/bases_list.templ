@@ -1,0 +1,15 @@
+package view
+
+import "github.com/Devil666face/avzserver/pkg/file"
+
+
+templ BasesList(v *View, m Map) {
+	@Base("Bases") {
+		<main class="container pt-5">
+				for _, f:=range m[DirContentKey].([]file.File) {
+					<a href={ templ.SafeURL(f.Href) }>{f.Name}</a>
+					<br/>
+				}
+		</main>
+	}
+}

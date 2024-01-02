@@ -75,7 +75,7 @@ func UserContent(v *View, m Map) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		for _, user := range m["Users"].([]models.User) {
+		for _, user := range m[UsersKey].([]models.User) {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr><th scope=\"row\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

@@ -16,7 +16,7 @@ templ UserContent(v *View, m Map) {
 				</tr>
 			</thead>
 			<tbody>
-				for _, user:=range m["Users"].([]models.User) {
+				for _, user:=range m[UsersKey].([]models.User) {
 					<tr>
 						<th scope="row">{ fmt.Sprint(user.ID) }</th>
 						<td>{ user.Email }</td>
