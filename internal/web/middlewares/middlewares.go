@@ -3,7 +3,6 @@ package middlewares
 import (
 	"github.com/Devil666face/avzserver/internal/web/handlers"
 
-	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/encryptcookie"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
@@ -37,10 +36,6 @@ func SecureHeaders(h *handlers.Handler) error {
 	})(h.Ctx())
 }
 
-func Compress(h *handlers.Handler) error {
-	return compress.New()(h.Ctx())
-}
-
 func EncryptCookie(h *handlers.Handler) error {
 	return encryptcookie.New(encryptcookie.Config{
 		Key: h.Config().CookieKey,
@@ -53,3 +48,7 @@ func Limiter(h *handlers.Handler) error {
 		Max:     h.Config().MaxQueryPerMinute,
 	})(h.Ctx())
 }
+
+// func Compress(h *handlers.Handler) error {
+// 	return compress.New()(h.Ctx())
+// }

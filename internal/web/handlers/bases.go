@@ -8,19 +8,24 @@ import (
 	"github.com/Devil666face/avzserver/pkg/file"
 )
 
-func Bases(h *Handler) error {
+func UrlToFilepath(url string) (string, error) {
 	base, err := os.Getwd()
 	if err != nil {
-		return h.c.Next()
+		return "", err
 	}
-	abs, err := filepath.Abs(filepath.Join(base, h.c.Path()))
+	abs, err := filepath.Abs(filepath.Join(base, url))
 	if err != nil {
+		return "", err
+	}
+	return abs, nil
+}
+
+func Bases(h *Handler) error {
+	path, err := UrlToFilepath(h.c.Path())
+	if stat, err := os.Stat(path); err != nil || !stat.IsDir() {
 		return h.c.Next()
 	}
-	if stat, err := os.Stat(abs); err != nil || !stat.IsDir() {
-		return h.c.Next()
-	}
-	files, err := file.DirContent(abs)
+	files, err := file.DirContent(path)
 	if err != nil {
 		return h.c.Next()
 	}

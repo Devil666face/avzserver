@@ -25,8 +25,7 @@ func (r *Router) setBases() {
 	bases.Use(r.wrapper(handlers.Bases))
 
 	bases.Static("", path, fiber.Static{
-		Compress:  true,
+		Download:  true,
 		ByteRange: true,
-		Browse:    true,
 	})
 }
