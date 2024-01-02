@@ -8,7 +8,7 @@ import (
 	"github.com/Devil666face/avzserver/pkg/file"
 )
 
-func UrlToFilepath(url string) (string, error) {
+func URLToFilepath(url string) (string, error) {
 	base, err := os.Getwd()
 	if err != nil {
 		return "", err
@@ -21,7 +21,10 @@ func UrlToFilepath(url string) (string, error) {
 }
 
 func Bases(h *Handler) error {
-	path, err := UrlToFilepath(h.c.Path())
+	path, err := URLToFilepath(h.c.Path())
+	if err != nil {
+		return h.c.Next()
+	}
 	if stat, err := os.Stat(path); err != nil || !stat.IsDir() {
 		return h.c.Next()
 	}
