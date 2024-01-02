@@ -14,8 +14,7 @@ import (
 )
 
 const (
-	pathPrefix = "static"
-	isBrowse   = false
+	isBrowse = false
 )
 
 type Media struct {
@@ -26,7 +25,7 @@ type Media struct {
 func NewStatic() func(*fiber.Ctx) error {
 	return filesystem.New(filesystem.Config{
 		Root:       http.FS(assets.StaticFS),
-		PathPrefix: pathPrefix,
+		PathPrefix: assets.DirStatic,
 		MaxAge:     86400,
 	})
 }
