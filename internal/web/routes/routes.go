@@ -41,7 +41,7 @@ func New(
 		middlewares: []func(*handlers.Handler) error{
 			middlewares.Logger,
 			middlewares.Recover,
-			// middlewares.Compress,
+			middlewares.Compress,
 			middlewares.Limiter,
 			middlewares.AllowHost,
 			middlewares.SecureHeaders,

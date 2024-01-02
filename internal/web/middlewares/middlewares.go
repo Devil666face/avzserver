@@ -1,14 +1,24 @@
 package middlewares
 
 import (
+	"strings"
+
+	"github.com/Devil666face/avzserver/assets"
 	"github.com/Devil666face/avzserver/internal/web/handlers"
 
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/encryptcookie"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/recover"
 )
+
+var skipCompress = []string{
+	assets.DirBases,
+	assets.DirMedia,
+}
 
 func Logger(h *handlers.Handler) error {
 	return logger.New()(h.Ctx())
@@ -49,6 +59,15 @@ func Limiter(h *handlers.Handler) error {
 	})(h.Ctx())
 }
 
-// func Compress(h *handlers.Handler) error {
-// 	return compress.New()(h.Ctx())
-// }
+func Compress(h *handlers.Handler) error {
+	return compress.New(compress.Config{
+		Next: func(c *fiber.Ctx) bool {
+			for _, path := range skipCompress {
+				if strings.HasPrefix(c.Path(), "/"+path) {
+					return true
+				}
+			}
+			return false
+		},
+	})(h.Ctx())
+}
