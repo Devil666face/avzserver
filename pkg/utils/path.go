@@ -22,3 +22,11 @@ func SetDir(file string) (string, error) {
 	}
 	return abs, nil
 }
+
+func DirContent(path string) ([]string, error) {
+	files, err := filepath.Glob(path + "/*")
+	if err != nil {
+		return nil, err
+	}
+	return files, nil
+}

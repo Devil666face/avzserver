@@ -53,6 +53,7 @@ func New(
 	r.setMiddlewares()
 	r.setAuth()
 	r.setUser()
+	r.setBases()
 	r.setIndex()
 	return &r
 }

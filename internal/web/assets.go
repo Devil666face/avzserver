@@ -34,7 +34,6 @@ func NewStatic() func(*fiber.Ctx) error {
 func MustMedia() *Media {
 	path, err := utils.SetDir(assets.DirMedia)
 	if err != nil {
-		path = assets.DirMedia
 		slog.Error(fmt.Sprintf("Media directory not create of found: %s", err))
 		//nolint:revive //If dir for media not created - close app
 		os.Exit(1)
