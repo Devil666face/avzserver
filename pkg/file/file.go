@@ -5,12 +5,14 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 type File struct {
 	path       string
 	Href, Name string
 	IsDir      bool
+	ModTime    time.Time
 }
 
 func DirContent(path string) ([]File, error) {
@@ -35,6 +37,7 @@ func (f *File) isDir() error {
 		return fmt.Errorf("get file info: %w for file %s", err, f.path)
 	}
 	f.IsDir = stat.IsDir()
+	f.ModTime = stat.ModTime()
 	return nil
 }
 

@@ -1,15 +1,92 @@
 package view
 
 import "github.com/Devil666face/avzserver/pkg/file"
+import "fmt"
+import "strings"
 
+func getIcon(f file.File) string {
+	fmt.Println(f)
+	if f.IsDir {
+		return iconForFolder(f)
+	}
+	return iconForFile(f)
+}
+
+func iconForFile(f file.File) string {
+	var basePath = []string{
+		"/static/icons",
+	}
+	s := strings.Split(f.Name, "_")
+	switch {
+	case strings.ContainsAny(f.Name, "DRW"):
+		basePath = append(basePath, "DrWeb", s[0]+"_"+s[1])
+	case strings.HasPrefix(f.Name, "K") || f.Name == "krd.iso":
+		basePath = append(basePath, "Kaspersky", s[0])
+	case strings.HasSuffix(f.Name, ".md5") || strings.HasSuffix(f.Name, ".cksum"):
+		basePath = append(basePath, "md5")
+	case strings.HasSuffix(f.Name, ".zip") || strings.HasSuffix(f.Name, ".tar.gz"):
+		basePath = append(basePath, "zip")
+	default:
+		basePath = append(basePath, "file")
+	}
+
+	basePath[len(basePath)-1] = basePath[len(basePath)-1] + ".svg"
+	return strings.Join(basePath, "/")
+}
+
+func iconForFolder(f file.File) string {
+	var basePath = []string{
+		"/static/icons",
+	}
+	switch {
+	case f.Name == "DrWeb" || f.Name == "Kaspersky":
+		basePath = append(basePath, f.Name, f.Name)
+	default:
+		basePath = append(basePath, "folder")
+	}
+	basePath[len(basePath)-1] = basePath[len(basePath)-1] + ".svg"
+	return strings.Join(basePath, "/")
+}
 
 templ BasesList(v *View, m Map) {
 	@Base("Bases") {
 		<main class="container pt-5">
-				for _, f:=range m[DirContentKey].([]file.File) {
-					<a href={ templ.SafeURL(f.Href) }>{f.Name}</a>
-					<br/>
-				}
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Modify</th>
+							<th scope="col">Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						for i, f:=range m[DirContentKey].([]file.File) {
+							<tr>
+								<th scope="row">{ fmt.Sprint(i+1) }</th>
+								<td>{ f.ModTime.Format("2006-01-02 15:04:05") }</td>
+								<td>
+									<a
+										href={ templ.SafeURL(f.Href) }
+										if f.IsDir {
+											class="btn btn-outline-primary"
+										}
+										else
+										if strings.HasSuffix(f.Name,".md5") {
+											class="btn btn-outline-secondary"
+										} else {
+											class="btn btn-outline-success"
+										}
+									>
+										<img src={ getIcon(f) } alt="" role="presentation" height="32" width="32"/>
+										{ f.Name }
+									</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 		</main>
 	}
 }

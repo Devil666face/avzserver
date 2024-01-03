@@ -29,25 +29,25 @@ templ UserContent(v *View, m Map) {
 						</td>
 						<td>
 							<button
- 								type="button"
- 								class="btn btn-outline-secondary"
- 								data-bs-toggle="modal"
- 								data-bs-target="#edit_user"
- 								hx-get={ v.URLto("user_edit","id",fmt.Sprint(user.ID)) }
- 								hx-swap="innerHTML"
- 								hx-target="#edit_user_content"
+								type="button"
+								class="btn btn-outline-secondary"
+								data-bs-toggle="modal"
+								data-bs-target="#edit_user"
+								hx-get={ v.URLto("user_edit", "id", fmt.Sprint(user.ID)) }
+								hx-swap="innerHTML"
+								hx-target="#edit_user_content"
 							>
 								📝
 							</button>
 						</td>
 						<td>
 							<button
- 								type="button"
- 								class="btn btn-outline-danger"
- 								hx-confirm={ fmt.Sprintf("🗑 Delete user - %s",user.Email) }
- 								hx-swap="innerHTML"
- 								hx-delete={ v.URLto("user_delete","id",fmt.Sprint(user.ID)) }
- 								hx-target="#users"
+								type="button"
+								class="btn btn-outline-danger"
+								hx-confirm={ fmt.Sprintf("🗑 Delete user - %s", user.Email) }
+								hx-swap="innerHTML"
+								hx-delete={ v.URLto("user_delete", "id", fmt.Sprint(user.ID)) }
+								hx-target="#users"
 							>
 								🗑
 							</button>
