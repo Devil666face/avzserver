@@ -3,6 +3,7 @@ package view
 import (
 	"fmt"
 	"log/slog"
+	"path"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -78,7 +79,7 @@ func (c View) ClientRedirect(redirectURL string) error {
 }
 
 func (c View) PreviousPage() string {
-	s := strings.Split(c.Path(), "/")
+	s := strings.Split(path.Clean(c.Path()), "/")
 	if len(s) == 2 {
 		return "/"
 	}
