@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/Devil666face/avzserver/assets"
 	"github.com/Devil666face/avzserver/internal/config"
 	"github.com/Devil666face/avzserver/internal/models"
 	"github.com/Devil666face/avzserver/internal/store/database"
@@ -17,8 +18,8 @@ import (
 )
 
 type Web struct {
-	fiber     *fiber.App
-	static    func(*fiber.Ctx) error
+	fiber *fiber.App
+	// static    func(*fiber.Ctx) error
 	media     *Media
 	config    *config.Config
 	database  *database.Database
@@ -36,7 +37,7 @@ func New() *Web {
 				ErrorHandler: handlers.DefaultErrorHandler,
 			},
 		),
-		static:    NewStatic(),
+		// static:    NewStatic(),
 		media:     MustMedia(),
 		config:    config.Must(),
 		validator: validators.New(),
@@ -56,8 +57,8 @@ func (a *Web) setStores() {
 }
 
 func (a *Web) setStatic() {
-	a.fiber.Use(routes.StaticPrefix, a.static)
-	a.fiber.Static(routes.MediaPrefix, a.media.path, a.media.handler)
+	// a.fiber.Use(routes.StaticPrefix, a.static)
+	a.fiber.Static(assets.DirMedia, a.media.path, a.media.handler)
 }
 
 func (a *Web) setRoutes() {

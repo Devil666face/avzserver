@@ -1,7 +1,6 @@
 package view
 
 import "github.com/Devil666face/avzserver/pkg/file"
-import "fmt"
 import "strings"
 import "unicode"
 
@@ -71,69 +70,8 @@ func emojiIconFile(f file.File) string {
 	}
 }
 
-templ BasesContent(v *View, m Map) {
-	<div class="table-responsive" id="bases">
-		<table class="table">
-			<thead>
-				<tr>
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>
-				if v.PreviousPage()!="/" {
-					<button
-						type="button"
-						class="btn btn-outline-info"
-						hx-get={ v.PreviousPage() }
-						hx-swap="innerHTML"
-						hx-target="#bases"
-						hx-push-url="true"
-					>
-						🔙
-					</button>
-				}
-				for i, f:=range m[DirContentKey].([]file.File) {
-					<tr>
-						<th scope="row">{ fmt.Sprint(i+1) }</th>
-						<td>{ f.ModTime.Format("2006-01-02 15:04:05") }</td>
-						<td>
-							if f.IsDir {
-								<button
-									type="button"
-									class="btn btn-outline-primary"
-									hx-get={ v.Path() + "/" + f.Name }
-									hx-swap="innerHTML"
-									hx-target="#bases"
-									hx-push-url="true"
-								>
-									{ getEmojiIcon(f) } { f.Name }
-								</button>
-							} else {
-								<a
-									href={ templ.SafeURL(f.Href) }
-									if strings.HasSuffix(f.Name,".md5") {
-										class="btn btn-outline-secondary"
-									} else {
-										class="btn btn-outline-success"
-									}
-								>
-									{ getEmojiIcon(f) } { f.Name }
-								</a>
-							}
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
-}
-
 templ BasesList(v *View, m Map) {
-	@Base(v.Path()) {
-		<main class="container pt-5">
-			@BasesContent(v,m)
-		</main>
+	@BaseContainer(v.Path()) {
+		@BasesContent(v,m)
 	}
 }

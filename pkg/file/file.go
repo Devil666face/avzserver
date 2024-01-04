@@ -13,6 +13,27 @@ type File struct {
 	Href, Name string
 	IsDir      bool
 	ModTime    time.Time
+	Size       int64
+}
+
+const (
+	_ = 1 << (10 * iota)
+	KB
+	MB
+	GB
+)
+
+func FormatSize(size int64) string {
+	switch {
+	case size < KB:
+		return fmt.Sprintf("%d B", size)
+	case size < MB:
+		return fmt.Sprintf("%.2f KB", float64(size)/float64(KB))
+	case size < GB:
+		return fmt.Sprintf("%.2f MB", float64(size)/float64(MB))
+	default:
+		return fmt.Sprintf("%.2f GB", float64(size)/float64(GB))
+	}
 }
 
 func DirContent(path string) ([]File, error) {
@@ -31,13 +52,14 @@ func DirContent(path string) ([]File, error) {
 	return c, nil
 }
 
-func (f *File) isDir() error {
+func (f *File) stat() error {
 	stat, err := os.Stat(f.path)
 	if err != nil {
 		return fmt.Errorf("get file info: %w for file %s", err, f.path)
 	}
 	f.IsDir = stat.IsDir()
 	f.ModTime = stat.ModTime()
+	f.Size = stat.Size()
 	return nil
 }
 
@@ -55,7 +77,7 @@ func New(_path string) (*File, error) {
 		path: _path,
 		Name: filepath.Base(_path),
 	}
-	if err := f.isDir(); err != nil {
+	if err := f.stat(); err != nil {
 		return nil, err
 	}
 	if err := f.href(); err != nil {

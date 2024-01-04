@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"github.com/Devil666face/avzserver/assets"
 	"github.com/Devil666face/avzserver/internal/config"
 	"github.com/Devil666face/avzserver/internal/store/database"
 	"github.com/Devil666face/avzserver/internal/store/session"
@@ -9,11 +10,6 @@ import (
 	"github.com/Devil666face/avzserver/internal/web/validators"
 
 	"github.com/gofiber/fiber/v2"
-)
-
-var (
-	StaticPrefix = "/static"
-	MediaPrefix  = "/media"
 )
 
 type Router struct {
@@ -39,9 +35,9 @@ func New(
 		store:     _store,
 		validator: _validator,
 		middlewares: []func(*handlers.Handler) error{
-			middlewares.Logger,
 			middlewares.Recover,
-			middlewares.Compress,
+			middlewares.Logger,
+			// middlewares.Compress,
 			middlewares.Limiter,
 			middlewares.AllowHost,
 			middlewares.SecureHeaders,
@@ -65,6 +61,8 @@ func (r *Router) wrapper(handler func(*handlers.Handler) error) func(c *fiber.Ct
 }
 
 func (r *Router) setMiddlewares() {
+	r.router.Use(r.wrapper(middlewares.Compress))
+	r.router.Use(assets.DirStatic, r.wrapper(middlewares.Static))
 	for _, middleware := range r.middlewares {
 		r.router.Use(r.wrapper(middleware))
 	}

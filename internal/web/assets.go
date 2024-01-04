@@ -3,14 +3,12 @@ package web
 import (
 	"fmt"
 	"log/slog"
-	"net/http"
 	"os"
 
 	"github.com/Devil666face/avzserver/assets"
 	"github.com/Devil666face/avzserver/pkg/utils"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/filesystem"
 )
 
 const (
@@ -22,13 +20,13 @@ type Media struct {
 	handler fiber.Static
 }
 
-func NewStatic() func(*fiber.Ctx) error {
-	return filesystem.New(filesystem.Config{
-		Root:       http.FS(assets.StaticFS),
-		PathPrefix: assets.DirStatic,
-		MaxAge:     86400,
-	})
-}
+// func NewStatic() func(*fiber.Ctx) error {
+// 	return filesystem.New(filesystem.Config{
+// 		Root:       http.FS(assets.StaticFS),
+// 		PathPrefix: assets.DirStatic,
+// 		MaxAge:     86400,
+// 	})
+// }
 
 func MustMedia() *Media {
 	path, err := utils.SetDir(assets.DirMedia)

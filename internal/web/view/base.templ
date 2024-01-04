@@ -26,3 +26,11 @@ templ Base(title string) {
 		</body>
 	</html>
 }
+
+templ BaseContainer(title string) {
+	@Base(title) {
+		<main class="container pt-5">
+			{ children... }
+		</main>
+	}
+}

@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"net/http"
 	"strings"
 
 	"github.com/Devil666face/avzserver/assets"
@@ -9,6 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/encryptcookie"
+	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -18,6 +20,14 @@ import (
 var skipCompress = []string{
 	assets.DirBases,
 	assets.DirMedia,
+}
+
+func Static(h *handlers.Handler) error {
+	return filesystem.New(filesystem.Config{
+		Root:       http.FS(assets.StaticFS),
+		PathPrefix: assets.DirStatic,
+		MaxAge:     86400,
+	})(h.Ctx())
 }
 
 func Logger(h *handlers.Handler) error {
