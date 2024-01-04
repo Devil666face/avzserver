@@ -3,90 +3,137 @@ package view
 import "github.com/Devil666face/avzserver/pkg/file"
 import "fmt"
 import "strings"
+import "unicode"
 
-func getIcon(f file.File) string {
-	fmt.Println(f)
-	if f.IsDir {
-		return iconForFolder(f)
-	}
-	return iconForFile(f)
+var emojiMap = map[string]string{
+	"KAV_old":   "🦠",
+	"KES":       "💻",
+	"KESL":      "🐧",
+	"KLMS":      "📧",
+	"KSC":       "🎚",
+	"KSLVA":     "📺",
+	"KESA":      "📱",
+	"DRW_ESS":   "🛡",
+	"DRW_SS":    "💻",
+	"DRW_Linux": "🐧",
 }
 
-func iconForFile(f file.File) string {
-	var basePath = []string{
-		"/static/icons",
+func getEmojiIcon(f file.File) string {
+	if f.IsDir {
+		return emojiIconFolder(f)
 	}
+	return emojiIconFile(f)
+}
+
+func emojiIconFolder(f file.File) string {
+	switch {
+	case f.Name == "DrWeb":
+		return "🕷"
+	case f.Name == "Kaspersky":
+		return "🦠"
+	default:
+		return "📂"
+	}
+}
+
+func beforeFirstDigit(input string) string {
+	var result string
+	for _, char := range input {
+		if unicode.IsDigit(char) {
+			return result
+		}
+		result += string(char)
+	}
+	return result
+}
+
+func emojiIconFile(f file.File) string {
 	s := strings.Split(f.Name, "_")
 	switch {
-	case strings.ContainsAny(f.Name, "DRW"):
-		basePath = append(basePath, "DrWeb", s[0]+"_"+s[1])
-	case strings.HasPrefix(f.Name, "K") || f.Name == "krd.iso":
-		basePath = append(basePath, "Kaspersky", s[0])
+	case strings.HasSuffix(f.Name, ".iso"):
+		return "📀"
 	case strings.HasSuffix(f.Name, ".md5") || strings.HasSuffix(f.Name, ".cksum"):
-		basePath = append(basePath, "md5")
+		return "🔐"
+	case strings.ContainsAny(f.Name, "DRW"):
+		if e, ok := emojiMap[s[0]+"_"+beforeFirstDigit(s[1])]; ok {
+			return e
+		}
+		return "🕷"
+	case strings.HasPrefix(f.Name, "K"):
+		if e, ok := emojiMap[s[0]]; ok {
+			return e
+		}
+		return "🦠"
 	case strings.HasSuffix(f.Name, ".zip") || strings.HasSuffix(f.Name, ".tar.gz"):
-		basePath = append(basePath, "zip")
+		return "🗃"
 	default:
-		basePath = append(basePath, "file")
+		return "📄"
 	}
-
-	basePath[len(basePath)-1] = basePath[len(basePath)-1] + ".svg"
-	return strings.Join(basePath, "/")
 }
 
-func iconForFolder(f file.File) string {
-	var basePath = []string{
-		"/static/icons",
-	}
-	switch {
-	case f.Name == "DrWeb" || f.Name == "Kaspersky":
-		basePath = append(basePath, f.Name, f.Name)
-	default:
-		basePath = append(basePath, "folder")
-	}
-	basePath[len(basePath)-1] = basePath[len(basePath)-1] + ".svg"
-	return strings.Join(basePath, "/")
+templ BasesContent(v *View, m Map) {
+	<div class="table-responsive" id="bases">
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				if v.PreviousPage()!="/" {
+					<button
+						type="button"
+						class="btn btn-outline-info"
+						hx-get={ v.PreviousPage() }
+						hx-swap="innerHTML"
+						hx-target="#bases"
+						hx-push-url="true"
+					>
+						🔙
+					</button>
+				}
+				for i, f:=range m[DirContentKey].([]file.File) {
+					<tr>
+						<th scope="row">{ fmt.Sprint(i+1) }</th>
+						<td>{ f.ModTime.Format("2006-01-02 15:04:05") }</td>
+						<td>
+							if f.IsDir {
+								<button
+									type="button"
+									class="btn btn-outline-primary"
+									hx-get={ v.Path() + "/" + f.Name }
+									hx-swap="innerHTML"
+									hx-target="#bases"
+									hx-push-url="true"
+								>
+									{ getEmojiIcon(f) } { f.Name }
+								</button>
+							} else {
+								<a
+									href={ templ.SafeURL(f.Href) }
+									if strings.HasSuffix(f.Name,".md5") {
+										class="btn btn-outline-secondary"
+									} else {
+										class="btn btn-outline-success"
+									}
+								>
+									{ getEmojiIcon(f) } { f.Name }
+								</a>
+							}
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 templ BasesList(v *View, m Map) {
-	@Base("Bases") {
+	@Base(v.Path()) {
 		<main class="container pt-5">
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th scope="col">Id</th>
-							<th scope="col">Modify</th>
-							<th scope="col">Name</th>
-						</tr>
-					</thead>
-					<tbody>
-						for i, f:=range m[DirContentKey].([]file.File) {
-							<tr>
-								<th scope="row">{ fmt.Sprint(i+1) }</th>
-								<td>{ f.ModTime.Format("2006-01-02 15:04:05") }</td>
-								<td>
-									<a
-										href={ templ.SafeURL(f.Href) }
-										if f.IsDir {
-											class="btn btn-outline-primary"
-										}
-										else
-										if strings.HasSuffix(f.Name,".md5") {
-											class="btn btn-outline-secondary"
-										} else {
-											class="btn btn-outline-success"
-										}
-									>
-										<img src={ getIcon(f) } alt="" role="presentation" height="32" width="32"/>
-										{ f.Name }
-									</a>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
+			@BasesContent(v,m)
 		</main>
 	}
 }

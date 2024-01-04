@@ -20,7 +20,7 @@ func URLToFilepath(url string) (string, error) {
 	return abs, nil
 }
 
-func Bases(h *Handler) error {
+func BasesList(h *Handler) error {
 	path, err := URLToFilepath(h.c.Path())
 	if err != nil {
 		return h.c.Next()
@@ -31,6 +31,11 @@ func Bases(h *Handler) error {
 	files, err := file.DirContent(path)
 	if err != nil {
 		return h.c.Next()
+	}
+	if h.View().IsHtmx() {
+		return h.Render(view.BasesContent, view.Map{
+			view.DirContentKey: files,
+		})
 	}
 	return h.Render(view.BasesList, view.Map{
 		view.DirContentKey: files,

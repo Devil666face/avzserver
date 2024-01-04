@@ -3,6 +3,7 @@ package view
 import (
 	"fmt"
 	"log/slog"
+	"strings"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -74,6 +75,14 @@ func (c View) IsHtmx() bool {
 func (c View) ClientRedirect(redirectURL string) error {
 	c.Set(HXRedirect, redirectURL)
 	return c.SendStatus(fiber.StatusFound)
+}
+
+func (c View) PreviousPage() string {
+	s := strings.Split(c.Path(), "/")
+	if len(s) == 2 {
+		return "/"
+	}
+	return strings.Join(s[0:len(s)-1], "/")
 }
 
 // func (c ViewCtx) SetClientRefresh() {

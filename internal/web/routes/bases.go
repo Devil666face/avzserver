@@ -22,7 +22,7 @@ func (r *Router) setBases() {
 		//nolint:revive //If dir for bases not created or not have - close app
 		os.Exit(1)
 	}
-	bases.Use(r.wrapper(handlers.Bases))
+	bases.Use(r.wrapper(handlers.BasesList)).Name("bases_list")
 
 	bases.Static("", path, fiber.Static{
 		Download:  true,
