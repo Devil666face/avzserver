@@ -5,6 +5,7 @@ import "fmt"
 import "strings"
 
 templ BasesContent(v *View, m Map) {
+	<title>Anti-virus bases | Bases</title>
 	<div class="table-responsive" id="bases">
 		if v.PreviousPage()!="/" {
 			<button
@@ -21,10 +22,10 @@ templ BasesContent(v *View, m Map) {
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th>
-					<th scope="col"></th>
+					<th scope="col">Id</th>
+					<th scope="col">Modify</th>
+					<th scope="col">Size</th>
+					<th scope="col">Name</th>
 				</tr>
 			</thead>
 			<tbody>

@@ -27,9 +27,11 @@ templ Base(title string) {
 	</html>
 }
 
-templ BaseContainer(title string) {
-	@Base(title) {
-		<main class="container pt-5">
+templ BaseContainer(title string, v *View, m Map) {
+	@Base("Anti-virus bases | "+title) {
+		@Navbar(v,m)
+		<div class="p-5"></div>
+		<main class="container" id="container">
 			{ children... }
 		</main>
 	}

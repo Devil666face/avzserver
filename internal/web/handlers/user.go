@@ -13,11 +13,11 @@ import (
 )
 
 func UserListPage(h *Handler) error {
-	if h.View().IsHtmx() {
-		return h.Render(view.UserContent, view.Map{
-			view.UsersKey: models.GetAllUsers(h.Database()),
-		})
-	}
+	// if h.View().IsHtmx() {
+	// 	return h.Render(view.UserContent, view.Map{
+	// 		view.UsersKey: models.GetAllUsers(h.Database()),
+	// 	})
+	// }
 	return h.Render(view.UserList, view.Map{
 		view.UsersKey: models.GetAllUsers(h.Database()),
 	})

@@ -6,6 +6,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/Devil666face/avzserver/internal/models"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -84,6 +85,17 @@ func (c View) PreviousPage() string {
 		return "/"
 	}
 	return strings.Join(s[0:len(s)-1], "/")
+}
+
+func (c View) CurrentUser() models.User {
+	if u, ok := c.Locals(UserKey).(models.User); ok {
+		return u
+	}
+	return models.User{}
+}
+
+func (c View) IsCurrentUrl(url string) bool {
+	return c.Path() == url
 }
 
 // func (c ViewCtx) SetClientRefresh() {

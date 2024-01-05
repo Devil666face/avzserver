@@ -71,7 +71,7 @@ func emojiIconFile(f file.File) string {
 }
 
 templ BasesList(v *View, m Map) {
-	@BaseContainer(v.Path()) {
+	@BaseContainer("Bases",v,m) {
 		@BasesContent(v,m)
 	}
 }

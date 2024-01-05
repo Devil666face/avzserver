@@ -17,6 +17,7 @@ templ ModalUser(v *View, m Map) {
 			hx-get={ v.URL("user_list") }
 			hx-swap="innerHTML"
 			hx-target="#users"
+			hx-select="#users"
 		></button>
 	</div>
 }
