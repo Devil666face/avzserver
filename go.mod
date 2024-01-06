@@ -8,6 +8,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.51.0
 	github.com/gofiber/storage/postgres/v3 v3.0.0-20240101070850-a1f3be3afdda
 	github.com/gofiber/storage/sqlite3 v1.3.8
+	github.com/google/uuid v1.4.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/microcosm-cc/bluemonday v1.0.26
 	golang.org/x/crypto v0.17.0
@@ -23,7 +24,6 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/google/uuid v1.4.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
