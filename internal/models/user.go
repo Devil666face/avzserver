@@ -7,6 +7,7 @@ import (
 	"github.com/Devil666face/avzserver/pkg/utils"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -21,7 +22,18 @@ type User struct {
 	Password        string `gorm:"not null" form:"password" validate:"required,min=8"`
 	PasswordConfirm string `gorm:"-" form:"password_confirm" validate:"required,eqfield=Password"`
 	Admin           bool   `gorm:"default:false" form:"admin" validate:"boolean"`
-	SessionKey      string `gorm:""`
+	Authority       string `gorm:"" form:"authority" validate:"required"`
+	Unit            string `gorm:"" form:"unit" validate:"required"`
+
+	Active      bool   `gorm:"default:false" form:"active" validate:"boolean"`
+	OneTimeCode string `gorm:"" form:"one_time_code"`
+
+	SessionKey string `gorm:""`
+}
+
+func (u *User) BeforeCreate(tx *gorm.DB) error {
+	u.OneTimeCode = uuid.NewString()
+	return nil
 }
 
 func (u *User) Create(db *gorm.DB) error {
@@ -41,7 +53,7 @@ func (u *User) IsFound(db *gorm.DB) bool {
 }
 
 func (u *User) Validate(v *validators.Validator) error {
-	if !v.ValidateInputs(u.Email, u.Password, u.PasswordConfirm) {
+	if !v.ValidateInputs(u.Email, u.Password, u.PasswordConfirm, u.Authority, u.Unit) {
 		return fiber.ErrInternalServerError
 	}
 	if err := v.SwitchUserValidate(u); err != nil {

@@ -1,65 +1,99 @@
 package view
 
+templ userFromField(label string) {
+	<div class="mb-1">
+		<label>{ label }</label>
+		{ children... }
+	</div>
+}
+
+templ userFormCheck(label, name  string, checked bool) {
+	<div class="form-check form-switch mb-1">
+		<input
+			class="form-check-input"
+			type="checkbox"
+			role="switch"
+			name={ name }
+			value="true"
+			if checked {
+				checked
+			}
+		/>
+		<label class="form-check-label">{ label }</label>
+	</div>
+}
+
 templ UserForm(v *View, m Map) {
 	@Token(v.CsrfToken())
 	<div class="modal-body">
 		@Alert(m)
-		<label>Email ➡:</label>
-		<input
-			name="email"
-			required
-			placeholder="Email"
-			value={ m.getUser().Email }
-			type="email"
-			autofocus
-			class="form-control"
-		/>
-		<br/>
-		<label>Password 🔒:</label>
-		<input
-			name="password"
-			placeholder="Empty for don't edit password"
-			type="password"
-			value=""
-			class="form-control"
-			autocomplete="new-password"
-			if m.notUser() {
+		@userFromField("📧 Email") {
+			<input
+				name="email"
 				required
-			}
-		/>
-		<br/>
-		<label>Confirm password 🔏:</label>
-		<input
-			name="password_confirm"
-			placeholder="Empty for don't edit password"
-			type="password"
-			value=""
-			class="form-control"
-			autocomplete="new-password"
-			if m.notUser() {
+				placeholder="Email"
+				value={ m.getUser().Email }
+				type="email"
+				autofocus
+				class="form-control"
+			/>
+		}
+		@userFromField("🔒 Пароль") {
+			<input
+				name="password"
+				placeholder="Оставьте пустым чтобы не менять пароль"
+				type="password"
+				value=""
+				class="form-control"
+				autocomplete="new-password"
+				if m.notUser() {
+					required
+				}
+			/>
+		}
+		@userFromField("🔏 Подтверждение пароля") {
+			<input
+				name="password_confirm"
+				placeholder="Оставьте пустым чтобы не менять пароль"
+				type="password"
+				value=""
+				class="form-control"
+				autocomplete="new-password"
+				if m.notUser() {
+					required
+				}
+			/>
+		}
+		@userFromField("🏢 Округ/ЦОВУ") {
+			<input
+				name="authority"
 				required
-			}
-		/>
-		<br/>
-		<label>Admin 👨‍🔧:</label>
-		<input
-			name="admin"
-			type="checkbox"
-			value="true"
-			class="form-check-label"
-			if m.getUser().Admin {
-				checked
-			}
-		/>
-		<br/>
+				placeholder="Округ/ЦОВУ"
+				value={ m.getUser().Authority }
+				autofocus
+				class="form-control"
+			/>
+		}
+		@userFromField("🪖 Войсковая часть") {
+			<input
+				name="unit"
+				required
+				placeholder="Войсковая часть"
+				value={ m.getUser().Unit }
+				autofocus
+				class="form-control"
+			/>
+		}
+		@userFormCheck("👨‍🔧 Администратор","admin",m.getUser().Admin)
+		@userFormCheck("✅ Активен","active",m.getUser().Active)
 		<div class="modal-footer">
 			<input
 				type="submit"
 				class="btn btn-outline-secondary form-control"
 				if v.IsURL("user_create") {
-					value="Create 🆕"
+					value="🆕 Создать"
 				} else {
-					value="Edit 📝"
+					value="📝 Изменить"
 				}
 			/>
 		</div>

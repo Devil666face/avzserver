@@ -28,13 +28,13 @@ func ModalUser(v *View, m Map) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if v.IsURL("user_create") {
-			templ_7745c5c3_Var2 := `🙍‍♂️ Create user`
+			templ_7745c5c3_Var2 := `🙍‍♂️ Создать пользователя`
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var2)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			templ_7745c5c3_Var3 := `📝 Edit `
+			templ_7745c5c3_Var3 := `📝 Изменить пользователя `
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -42,7 +42,7 @@ func ModalUser(v *View, m Map) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(m.getUser().Email)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/modal_user.templ`, Line: 8, Col: 33}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/modal_user.templ`, Line: 8, Col: 70}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {

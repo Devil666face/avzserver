@@ -101,6 +101,9 @@ func (h *Handler) SaveSession() error {
 }
 
 func (h *Handler) DestroySession() error {
+	if err := h.getSession(); err != nil {
+		return err
+	}
 	return h.session.Destroy()
 }
 

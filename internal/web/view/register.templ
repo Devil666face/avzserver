@@ -1,0 +1,38 @@
+package view
+
+templ authorityField() {
+	<input
+		name="authority"
+		autocapitalize="none"
+		autocomplete="authority"
+		required=""
+		class="form-control"
+		placeholder="Округ/ЦОВУ"
+	/>
+	<label for="floatingInput">🏢 Округ/ЦОВУ</label>
+}
+
+templ unitField() {
+	<input
+		name="unit"
+		autocapitalize="none"
+		autocomplete="unit"
+		required=""
+		class="form-control"
+		placeholder="Войсковая часть"
+	/>
+	<label for="floatingInput">🪖 Войсковая часть</label>
+}
+
+templ Register(v *View, m Map) {
+	@baseAuth("Register") {
+		<form hx-post={ v.URL("register") } enctype="multipart/form-data">
+			<h1 class="h3 mb-3 fw-normal">🆕 Регистрация</h1>
+			@Alert(m)
+			@formFields(emailField(),authorityField(),unitField(),passwordField())
+			<button class="btn btn-outline-primary w-100 py-2" type="submti">
+				👤 Создать
+			</button>
+		</form>
+	}
+}

@@ -48,12 +48,14 @@ func UserCreate(h *Handler) error {
 	if err := h.Ctx().BodyParser(&u); err != nil {
 		return fiber.ErrBadRequest
 	}
+	fmt.Println(u)
 	if err := u.Validate(h.Validator()); err != nil {
 		return h.Render(view.UserCreate, view.Map{
 			view.UserKey:    u,
 			view.MessageKey: err.Error(),
 		})
 	}
+	u.Active = true
 	if err := u.Create(h.Database()); err != nil {
 		return h.Render(view.UserCreate, view.Map{
 			view.UserKey:    u,
@@ -92,7 +94,7 @@ func UserEdit(h *Handler) error {
 			})
 		}
 	}
-	u.Email, u.Admin, u.Password = in.Email, in.Admin, in.Password
+	u.Email, u.Password, u.Authority, u.Unit, u.Admin, u.Active = in.Email, in.Password, in.Authority, in.Unit, in.Admin, in.Active
 	if err := u.Update(h.Database()); err != nil {
 		return h.Render(view.UserEdit, view.Map{
 			view.UserKey:    u,
@@ -107,7 +109,7 @@ func UserEdit(h *Handler) error {
 	}
 	return h.Render(view.UserEdit, view.Map{
 		view.UserKey:    u,
-		view.SuccessKey: "Successful update user",
+		view.SuccessKey: "Пользователь обновлен",
 	})
 }
 

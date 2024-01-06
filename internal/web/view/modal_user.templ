@@ -4,9 +4,9 @@ templ ModalUser(v *View, m Map) {
 	<div class="modal-header">
 		<h1 class="modal-title fs-5" id="staticBackdropLabel">
 			if v.IsURL("user_create") {
-				🙍‍♂️ Create user
+				🙍‍♂️ Создать пользователя
 			} else {
-				📝 Edit { m.getUser().Email }
+				📝 Изменить пользователя { m.getUser().Email }
 			}
 		</h1>
 		<button

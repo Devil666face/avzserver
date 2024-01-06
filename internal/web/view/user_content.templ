@@ -3,6 +3,14 @@ package view
 import "github.com/Devil666face/avzserver/internal/models"
 import "fmt"
 
+templ userContentBoolValue(val bool) {
+	if val {
+		✅
+	} else {
+		❌
+	}
+}
+
 templ UserContent(v *View, m Map) {
 	<div id="users" class="table-responsive">
 		<table class="table">
@@ -10,9 +18,12 @@ templ UserContent(v *View, m Map) {
 				<tr>
 					<th scope="col">Id</th>
 					<th scope="col">Email</th>
-					<th scope="col">Admin</th>
-					<th scope="col">Edit</th>
-					<th scope="col">Delete</th>
+					<th scope="col">Округ/ЦОВУ</th>
+					<th scope="col">Войсковая часть</th>
+					<th scope="col">Администратор</th>
+					<th scope="col">Активен</th>
+					<th scope="col">Изменить</th>
+					<th scope="col">Удалить</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -20,12 +31,13 @@ templ UserContent(v *View, m Map) {
 					<tr>
 						<th scope="row">{ fmt.Sprint(user.ID) }</th>
 						<td>{ user.Email }</td>
+						<td>{ user.Authority }</td>
+						<td>{ user.Unit }</td>
 						<td>
-							if user.Admin {
-								✅
-							} else {
-								❌
-							}
+							@userContentBoolValue(user.Admin)
+						</td>
+						<td>
+							@userContentBoolValue(user.Active)
 						</td>
 						<td>
 							<button
@@ -44,7 +56,7 @@ templ UserContent(v *View, m Map) {
 							<button
 								type="button"
 								class="btn btn-outline-danger"
-								hx-confirm={ fmt.Sprintf("🗑 Delete user - %s", user.Email) }
+								hx-confirm={ fmt.Sprintf("🗑 Удалить пользователя - %s?", user.Email) }
 								hx-swap="innerHTML"
 								hx-delete={ v.URLto("user_delete", "id", fmt.Sprint(user.ID)) }
 								hx-target="#users"

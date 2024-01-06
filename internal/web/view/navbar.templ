@@ -39,7 +39,7 @@ templ Navbar(v *View, m Map) {
 							hx-push-url="true"
 							onclick="onNavButtonClick(this)"
 						>
-							📦 Bases
+							📦 Базы
 						</a>
 					</li>
 					if v.CurrentUser().Admin {
@@ -54,10 +54,19 @@ templ Navbar(v *View, m Map) {
 								hx-push-url="true"
 								onclick="onNavButtonClick(this)"
 							>
-								👥 Users
+								👥 Пользователи
 							</a>
 						</li>
 					}
+					<li class="nav-item">
+						<a
+							type="button"
+							class="nav-link"
+							hx-post={ v.URL("logout") }
+						>
+							✋ Выйти
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>

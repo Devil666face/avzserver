@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-const WrongLoginData = "Mismatch username or password"
+const WrongLoginData = "Неверное имя пользователя или пароль"
 
 var (
 	ErrUserNotFound  = fiber.NewError(fiber.StatusForbidden, WrongLoginData)

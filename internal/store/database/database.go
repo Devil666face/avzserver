@@ -65,6 +65,7 @@ func (d *Database) createSuperuser() error {
 		Email:    d.config.Superuser,
 		Admin:    true,
 		Password: hash,
+		Active:   true,
 	}
 	return u.Create(d.db)
 }

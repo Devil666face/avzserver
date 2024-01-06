@@ -1,41 +1,79 @@
 package view
 
-templ Login(v *View, m Map) {
-	@Base("Login") {
-		<main class="form-signin m-auto h-100 d-flex align-items-center justify-content-center">
-			<form hx-post={ v.URL("login") } enctype="multipart/form-data">
-				<h1 class="h3 mb-3 fw-normal">Sing in 🚪</h1>
-				@Alert(m)
-				<div class="form-floating">
-					<input
-						type="email"
-						name="email"
-						autofocus=""
-						autocapitalize="none"
-						autocomplete="username"
-						maxlength="150"
-						required=""
-						class="form-control"
-						placeholder="Email"
-					/>
-					<label for="floatingInput">Email ➡</label>
-				</div>
-				<div class="form-floating">
-					<input
-						type="password"
-						name="password"
-						autocomplete="current-password"
-						required=""
-						class="form-control"
-						placeholder="Password"
-					/>
-					<label for="floatingPassword">Password 🔒</label>
-				</div>
-				<button class="btn btn-outline-primary w-100 py-2" type="submit">
-					Login 🔑
-				</button>
-			</form>
+templ baseAuth(title string) {
+	@Base(title) {
+		<main class="form-signin m-auto h-100 d-flex align-items-center justify-content-center" id="auth_form">
+			{ children... }
 		</main>
 	}
-	@Token(v.CsrfToken())
+}
+
+templ formFields(fields ...templ.Component) {
+	for _,f:=range fields {
+		<div class="form-floating">
+			@f
+		</div>
+	}
+}
+
+templ emailField() {
+	<input
+		type="email"
+		name="email"
+		autofocus=""
+		autocapitalize="none"
+		autocomplete="username"
+		maxlength="150"
+		required=""
+		class="form-control"
+		placeholder="Email"
+	/>
+	<label for="floatingInput">📧 Email</label>
+}
+
+templ passwordField() {
+	<div class="form-floating">
+		<input
+			type="password"
+			name="password"
+			autocomplete="current-password"
+			required=""
+			class="form-control"
+			placeholder="Пароль"
+		/>
+		<label for="floatingPassword">🔒 Пароль</label>
+	</div>
+}
+
+templ Login(v *View, m Map) {
+	@baseAuth("Login") {
+		<form
+			hx-post={ v.URL("login") }
+			enctype="multipart/form-data"
+			hx-swap="outerHTML"
+			hx-target="#auth_form"
+			hx-select="#auth_form"
+		>
+			<div class="text-center">
+				<h1 class="h3 mb-3 fw-normal">🚫🦠 Anti-virus bases</h1>
+				<h1 class="h3 mb-3 fw-normal">➡️ Войти</h1>
+			</div>
+			@Alert(m)
+			@formFields(emailField(),passwordField())
+			<button class="btn btn-outline-primary w-100 py-2" type="submit">
+				🔑 Войти
+			</button>
+			<button
+				class="btn btn-outline-primary w-100 py-2 mt-2"
+				type="button"
+				hx-get={ v.URL("register") }
+				hx-swap="outerHTML"
+				hx-target="#auth_form"
+				hx-select="#auth_form"
+			>
+				👤 Регистрация
+			</button>
+		</form>
+		@Token(v.CsrfToken())
+	}
 }

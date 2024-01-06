@@ -33,7 +33,7 @@ func New() *Web {
 	a := &Web{
 		fiber: fiber.New(
 			fiber.Config{
-				AppName:      "fiber",
+				AppName:      "avzserver",
 				ErrorHandler: handlers.DefaultErrorHandler,
 			},
 		),

@@ -6,11 +6,13 @@ import (
 )
 
 var (
-	ErrEmailRequired     = fiber.NewError(fiber.StatusBadRequest, "Email is required")
-	ErrEmailIncorrect    = fiber.NewError(fiber.StatusBadRequest, "Incorrect email")
-	ErrPasswordMissmatch = fiber.NewError(fiber.StatusBadRequest, "Passwords mismatch")
-	ErrPasswordRequired  = fiber.NewError(fiber.StatusBadRequest, "Password is required")
-	ErrPasswordShort     = fiber.NewError(fiber.StatusBadRequest, "Password is too short")
+	ErrEmailRequired     = fiber.NewError(fiber.StatusBadRequest, "Email обязателен")
+	ErrEmailIncorrect    = fiber.NewError(fiber.StatusBadRequest, "Введен некорректный email")
+	ErrPasswordMissmatch = fiber.NewError(fiber.StatusBadRequest, "Пароли не совпадают")
+	ErrPasswordRequired  = fiber.NewError(fiber.StatusBadRequest, "Пароль обязателен")
+	ErrPasswordShort     = fiber.NewError(fiber.StatusBadRequest, "Пароль слишком короткий")
+	ErrAuthorityRequired = fiber.NewError(fiber.StatusBadRequest, "Необходимо поле Округ/ЦОВУ")
+	ErrUnitRequired      = fiber.NewError(fiber.StatusBadRequest, "Необходимо поле войсковая часть")
 )
 
 var userValidateMap = map[string]validatorFunc{
@@ -41,15 +43,37 @@ var userValidateMap = map[string]validatorFunc{
 		}
 		return nil
 	},
+	"Authority": func(e validator.FieldError) error {
+		switch e.Tag() {
+		case required:
+			return ErrAuthorityRequired
+		}
+		return nil
+	},
+	"Unit": func(e validator.FieldError) error {
+		switch e.Tag() {
+		case required:
+			return ErrUnitRequired
+		}
+		return nil
+	},
 }
 
 func (v *Validator) SwitchUserValidate(user any) error {
 	if err := v.validate.Struct(user); err != nil {
 		if err, ok := err.(validator.ValidationErrors); ok { //nolint:errorlint // This example from official doc
 			for _, e := range err {
-				if err := userValidateMap[e.Field()](e); err != nil {
+				validateFunc, ok := userValidateMap[e.Field()]
+				if ok {
+					if err := validateFunc(e); err != nil {
+						return err
+					}
+				} else {
 					return err
 				}
+				// if err := userValidateMap[e.Field()](e); err != nil {
+				// 	return err
+				// }
 			}
 			return err
 		}
@@ -57,35 +81,3 @@ func (v *Validator) SwitchUserValidate(user any) error {
 	}
 	return nil
 }
-
-// func (v *Validator) SwitchUserValidate(err error) error {
-// 	if err, ok := err.(validator.ValidationErrors); ok { //nolint:errorlint // This example from official doc
-// 		for _, e := range err {
-// 			switch e.Field() {
-// 			case "Email":
-// 				switch e.Tag() {
-// 				case required:
-// 					return ErrEmailRequired
-// 				case "email":
-// 					return ErrEmailIncorrect
-// 				}
-// 			case "Password":
-// 				switch e.Tag() {
-// 				case required:
-// 					return ErrPasswordRequired
-// 				case "min":
-// 					return ErrPasswordShort
-// 				}
-// 			case "PasswordConfirm":
-// 				switch e.Tag() {
-// 				case required:
-// 					return ErrPasswordRequired
-// 				case "eqfield":
-// 					return ErrPasswordMissmatch
-// 				}
-// 			}
-// 		}
-// 		return err
-// 	}
-// 	return fiber.ErrInternalServerError
-// }

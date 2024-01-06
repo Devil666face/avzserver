@@ -15,6 +15,25 @@ func (r *Router) setAuth() {
 	).Name("login")
 	auth.Post(
 		"/login",
+		r.wrapper(middlewares.HxOnly),
 		r.wrapper(handlers.Login),
+	)
+
+	auth.Post(
+		"/logout",
+		r.wrapper(middlewares.HxOnly),
+		r.wrapper(handlers.Logout),
+	).Name("logout")
+
+	auth.Get(
+		"/new",
+		r.wrapper(middlewares.HxOnly),
+		r.wrapper(middlewares.AlreadyLogin),
+		r.wrapper(handlers.RegisterPage),
+	).Name("register")
+	auth.Post(
+		"/new",
+		r.wrapper(middlewares.HxOnly),
+		r.wrapper(handlers.Register),
 	)
 }
