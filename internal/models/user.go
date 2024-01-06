@@ -31,7 +31,7 @@ type User struct {
 	SessionKey string `gorm:""`
 }
 
-func (u *User) BeforeCreate(tx *gorm.DB) error {
+func (u *User) BeforeCreate(_ *gorm.DB) error {
 	u.OneTimeCode = uuid.NewString()
 	return nil
 }

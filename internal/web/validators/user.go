@@ -44,6 +44,7 @@ var userValidateMap = map[string]validatorFunc{
 		return nil
 	},
 	"Authority": func(e validator.FieldError) error {
+		//nolint:revive //scalability
 		switch e.Tag() {
 		case required:
 			return ErrAuthorityRequired
@@ -51,6 +52,7 @@ var userValidateMap = map[string]validatorFunc{
 		return nil
 	},
 	"Unit": func(e validator.FieldError) error {
+		//nolint:revive //scalability
 		switch e.Tag() {
 		case required:
 			return ErrUnitRequired

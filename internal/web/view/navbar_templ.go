@@ -154,7 +154,7 @@ func Navbar(v *View, m Map) templ.Component {
 
 func getNavButtonClass(v *View, urlname string) string {
 	c := []string{"nav-link"}
-	if v.IsCurrentUrl(v.URL(urlname)) {
+	if v.IsCurrentURL(v.URL(urlname)) {
 		c = append(c, "active")
 	}
 	return strings.Join(c, " ")

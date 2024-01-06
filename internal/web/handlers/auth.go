@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"fmt"
-
 	"github.com/Devil666face/avzserver/internal/models"
 	"github.com/Devil666face/avzserver/internal/web/view"
 
@@ -69,6 +67,5 @@ func Register(h *Handler) error {
 	if err := h.Ctx().BodyParser(&u); err != nil {
 		return fiber.ErrBadRequest
 	}
-	fmt.Println(u)
 	return nil
 }

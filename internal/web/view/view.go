@@ -94,7 +94,7 @@ func (c View) CurrentUser() models.User {
 	return models.User{}
 }
 
-func (c View) IsCurrentUrl(url string) bool {
+func (c View) IsCurrentURL(url string) bool {
 	return c.Path() == url
 }
 
