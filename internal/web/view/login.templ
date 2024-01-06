@@ -2,7 +2,10 @@ package view
 
 templ baseAuth(title string) {
 	@Base(title) {
-		<main class="form-signin m-auto h-100 d-flex align-items-center justify-content-center" id="auth_form">
+		<main
+			class="form-signin m-auto h-100 d-flex align-items-center justify-content-center"
+			id="auth_form"
+		>
 			{ children... }
 		</main>
 	}
@@ -16,17 +19,18 @@ templ formFields(fields ...templ.Component) {
 	}
 }
 
-templ emailField() {
+templ emailField(m Map) {
 	<input
 		type="email"
 		name="email"
-		autofocus=""
 		autocapitalize="none"
 		autocomplete="username"
 		maxlength="150"
-		required=""
 		class="form-control"
 		placeholder="Email"
+		value={ m.getUser().Email }
+		required
+		autofocus
 	/>
 	<label for="floatingInput">📧 Email</label>
 }
@@ -37,43 +41,52 @@ templ passwordField() {
 			type="password"
 			name="password"
 			autocomplete="current-password"
-			required=""
 			class="form-control"
 			placeholder="Пароль"
+			required
 		/>
 		<label for="floatingPassword">🔒 Пароль</label>
 	</div>
 }
 
+func authButtonClass() string {
+	return "btn btn-outline-primary w-100 py-2 mt-2"
+}
+
 templ Login(v *View, m Map) {
 	@baseAuth("Login") {
-		<form
-			hx-post={ v.URL("login") }
-			enctype="multipart/form-data"
-			hx-swap="outerHTML"
-			hx-target="#auth_form"
-			hx-select="#auth_form"
-		>
+		@FloatingAlert(m)
+		<div class="d-flex flex-column align-items-center">
 			<div class="text-center">
 				<h1 class="h3 mb-3 fw-normal">🚫🦠 Anti-virus bases</h1>
 				<h1 class="h3 mb-3 fw-normal">➡️ Войти</h1>
 			</div>
-			@Alert(m)
-			@formFields(emailField(),passwordField())
-			<button class="btn btn-outline-primary w-100 py-2" type="submit">
-				🔑 Войти
-			</button>
-			<button
-				class="btn btn-outline-primary w-100 py-2 mt-2"
-				type="button"
-				hx-get={ v.URL("register") }
+			<form
+				hx-post={ v.URL("login") }
+				enctype="multipart/form-data"
 				hx-swap="outerHTML"
 				hx-target="#auth_form"
 				hx-select="#auth_form"
 			>
-				👤 Регистрация
-			</button>
-		</form>
-		@Token(v.CsrfToken())
+				@formFields(emailField(m),passwordField())
+				<button
+					class={ authButtonClass() }
+					type="submit"
+				>
+					🔑 Войти
+				</button>
+				<button
+					class={ authButtonClass() }
+					type="button"
+					hx-get={ v.URL("register") }
+					hx-swap="outerHTML"
+					hx-target="#auth_form"
+					hx-select="#auth_form"
+				>
+					👤 Регистрация
+				</button>
+			</form>
+			@Token(v.CsrfToken())
+		</div>
 	}
 }

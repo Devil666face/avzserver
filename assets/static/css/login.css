@@ -14,9 +14,9 @@ body {
   border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="password"] {
+.form-signin input[type="password"],
+.form-signin input[name="password_confirm"] {
   min-width: 330px;
-  margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }

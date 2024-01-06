@@ -50,19 +50,18 @@ func UserCreate(h *Handler) error {
 	}
 	if err := u.Validate(h.Validator()); err != nil {
 		return h.Render(view.UserCreate, view.Map{
-			view.UserKey:    u,
-			view.MessageKey: err.Error(),
+			view.UserKey:          u,
+			view.AllertMessageKey: err.Error(),
 		})
 	}
-	u.Active = true
 	if err := u.Create(h.Database()); err != nil {
 		return h.Render(view.UserCreate, view.Map{
-			view.UserKey:    u,
-			view.MessageKey: err.Error(),
+			view.UserKey:          u,
+			view.AllertMessageKey: err.Error(),
 		})
 	}
 	return h.Render(view.UserCreate, view.Map{
-		view.SuccessKey: fmt.Sprintf("User %s - created", u.Email),
+		view.SuccessMessageKey: fmt.Sprintf("User %s - created", u.Email),
 	})
 }
 
@@ -88,27 +87,27 @@ func UserEdit(h *Handler) error {
 			in.Password, in.PasswordConfirm = u.Password, u.Password
 		} else {
 			return h.Render(view.UserEdit, view.Map{
-				view.UserKey:    u,
-				view.MessageKey: err.Error(),
+				view.UserKey:          u,
+				view.AllertMessageKey: err.Error(),
 			})
 		}
 	}
 	u.Email, u.Password, u.Authority, u.Unit, u.Admin, u.Active = in.Email, in.Password, in.Authority, in.Unit, in.Admin, in.Active
 	if err := u.Update(h.Database()); err != nil {
 		return h.Render(view.UserEdit, view.Map{
-			view.UserKey:    u,
-			view.MessageKey: err.Error(),
+			view.UserKey:          u,
+			view.AllertMessageKey: err.Error(),
 		})
 	}
 	if err := h.DestroySessionByID(u.SessionKey); err != nil {
 		return h.Render(view.UserEdit, view.Map{
-			view.UserKey:    u,
-			view.MessageKey: err.Error(),
+			view.UserKey:          u,
+			view.AllertMessageKey: err.Error(),
 		})
 	}
 	return h.Render(view.UserEdit, view.Map{
-		view.UserKey:    u,
-		view.SuccessKey: "Пользователь обновлен",
+		view.UserKey:           u,
+		view.SuccessMessageKey: "Пользователь обновлен",
 	})
 }
 

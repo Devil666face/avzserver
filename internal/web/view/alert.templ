@@ -1,14 +1,45 @@
 package view
 
+func getAlertClass(alertTypeClass string) string {
+	return "alert alert-dismissible fade show text-left " + alertTypeClass
+}
+
+templ alertField(message, alertTypeClass, extraClass string) {
+	<div class={ getAlertClass(alertTypeClass) + extraClass } role="alert">
+		switch alertTypeClass {
+			case "alert-danger":
+				⚠️ 
+			case "alert-success":
+				✅ 
+		}
+		{ message }
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
 templ Alert(m Map) {
-	if message,ok:=m[MessageKey].(string);ok {
-		<div class="alert alert-danger text-left" role="alert">
-			❌ { message }
-		</div>
+	if mess,ok:=m[AllertMessageKey].(string);ok {
+		@alertField(mess,"alert-danger","")
 	}
-	if success ,ok:=m[SuccessKey].(string);ok {
-		<div class="alert alert-success text-left" role="alert">
-			✅ { success }
-		</div>
+	if mess ,ok:=m[SuccessMessageKey].(string);ok {
+		@alertField(mess,"alert-success","")
+	}
+}
+
+templ FloatingAlert(m Map) {
+	<style type="text/css">
+    .floating-alert {
+			position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+    }
+  </style>
+	if mess,ok:=m[AllertMessageKey].(string);ok {
+		@alertField(mess,"alert-danger"," floating-alert")
+	}
+	if mess ,ok:=m[SuccessMessageKey].(string);ok {
+		@alertField(mess,"alert-success"," floating-alert")
 	}
 }

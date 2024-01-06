@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"fmt"
+
 	"github.com/Devil666face/avzserver/internal/models"
 	"github.com/Devil666face/avzserver/internal/web/view"
 
@@ -28,12 +30,12 @@ func Login(h *Handler) error {
 	u.Email = in.Email
 	if err := u.LoginValidate(h.Database(), h.Validator(), in.Password); err != nil {
 		return h.Render(view.Login, view.Map{
-			view.MessageKey: err.Error(),
+			view.AllertMessageKey: err.Error(),
 		})
 	}
 	if !u.Active {
 		return h.Render(view.Login, view.Map{
-			view.MessageKey: ErrDisabledUser.Error(),
+			view.AllertMessageKey: ErrDisabledUser.Error(),
 		})
 	}
 	if err := h.SetInSession(view.AuthKey, true); err != nil {
@@ -67,5 +69,22 @@ func Register(h *Handler) error {
 	if err := h.Ctx().BodyParser(&u); err != nil {
 		return fiber.ErrBadRequest
 	}
-	return nil
+	if err := u.Validate(h.Validator()); err != nil {
+		return h.Render(view.Register, view.Map{
+			view.UserKey:          u,
+			view.AllertMessageKey: err.Error(),
+		})
+	}
+	u.Active = false
+	u.Admin = false
+	if err := u.Create(h.Database()); err != nil {
+		return h.Render(view.Register, view.Map{
+			view.AllertMessageKey: err.Error(),
+		})
+	}
+	// gorutine smtp send message
+	return h.Render(view.Login, view.Map{
+		view.UserKey:           u,
+		view.SuccessMessageKey: fmt.Sprintf("Пользователь %s - создан,\nдля входа подтвердите регистрацию", u.Email),
+	})
 }

@@ -41,26 +41,30 @@ templ UserForm(v *View, m Map) {
 		@userFromField("🔒 Пароль") {
 			<input
 				name="password"
-				placeholder="Оставьте пустым чтобы не менять пароль"
 				type="password"
 				value=""
 				class="form-control"
 				autocomplete="new-password"
 				if m.notUser() {
 					required
+					placeholder="Пароль"
+				} else {
+					placeholder="Оставьте пустым чтобы не менять пароль"
 				}
 			/>
 		}
 		@userFromField("🔏 Подтверждение пароля") {
 			<input
 				name="password_confirm"
-				placeholder="Оставьте пустым чтобы не менять пароль"
 				type="password"
 				value=""
 				class="form-control"
 				autocomplete="new-password"
 				if m.notUser() {
 					required
+					placeholder="Подтверждение пароля"
+				} else {
+					placeholder="Оставьте пустым чтобы не менять пароль"
 				}
 			/>
 		}

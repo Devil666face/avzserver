@@ -13,7 +13,7 @@ import (
 
 var (
 	ErrPasswordEncrypt = fiber.ErrInternalServerError
-	ErrUserNotUniq     = fiber.NewError(fiber.StatusBadRequest, "User already create")
+	ErrUserNotUniq     = fiber.NewError(fiber.StatusBadRequest, "Пользователь уже создан")
 )
 
 type User struct {
@@ -54,7 +54,7 @@ func (u *User) IsFound(db *gorm.DB) bool {
 
 func (u *User) Validate(v *validators.Validator) error {
 	if !v.ValidateInputs(u.Email, u.Password, u.PasswordConfirm, u.Authority, u.Unit) {
-		return fiber.ErrInternalServerError
+		return fiber.ErrBadRequest
 	}
 	if err := v.SwitchUserValidate(u); err != nil {
 		return err

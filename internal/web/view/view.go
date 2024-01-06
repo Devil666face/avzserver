@@ -22,12 +22,12 @@ const (
 )
 
 const (
-	AuthKey       = "authenticated"
-	UserKey       = "User"
-	UsersKey      = "Users"
-	MessageKey    = "Message"
-	SuccessKey    = "Success"
-	DirContentKey = "Content"
+	AuthKey           = "authenticated"
+	UserKey           = "User"
+	UsersKey          = "Users"
+	AllertMessageKey  = "AlertMessage"
+	SuccessMessageKey = "SuccessMessage"
+	DirContentKey     = "Content"
 )
 
 type View struct {

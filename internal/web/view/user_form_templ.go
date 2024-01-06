@@ -168,12 +168,17 @@ func UserForm(v *View, m Map) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"password\" placeholder=\"Оставьте пустым чтобы не менять пароль\" type=\"password\" value=\"\" class=\"form-control\" autocomplete=\"new-password\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"password\" type=\"password\" value=\"\" class=\"form-control\" autocomplete=\"new-password\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			if m.notUser() {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required placeholder=\"Пароль\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			} else {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" placeholder=\"Оставьте пустым чтобы не менять пароль\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -197,12 +202,17 @@ func UserForm(v *View, m Map) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"password_confirm\" placeholder=\"Оставьте пустым чтобы не менять пароль\" type=\"password\" value=\"\" class=\"form-control\" autocomplete=\"new-password\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"password_confirm\" type=\"password\" value=\"\" class=\"form-control\" autocomplete=\"new-password\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			if m.notUser() {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" required placeholder=\"Подтверждение пароля\"")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			} else {
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" placeholder=\"Оставьте пустым чтобы не менять пароль\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
