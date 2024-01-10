@@ -90,7 +90,7 @@ func UserContent(v *View, m Map) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var8 := `Войсковая часть`
+		templ_7745c5c3_Var8 := `Вч/Военный комиссариат`
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -269,47 +269,3 @@ func UserContent(v *View, m Map) templ.Component {
 		return templ_7745c5c3_Err
 	})
 }
-
-// templ UserContent(v *View, m Map) {
-// 	<div id="users">
-// 		for _, user:=range m["Users"].([]models.User) {
-// 			<div class="row mb-2" id={ fmt.Sprintf("user_%d",user.ID) }>
-// 				<div class="col">{ fmt.Sprint(user.ID) }</div>
-// 				<div class="col">{ user.Email }</div>
-// 				<div class="col">
-// 					if user.Admin {
-// 						✅
-// 					} else {
-// 						❌
-// 					}
-// 				</div>
-// 				<div class="col">
-// 					<button
-//  						type="button"
-//  						class="btn btn-outline-secondary"
-//  						data-bs-toggle="modal"
-//  						data-bs-target="#edit_user"
-//  						hx-get={ v.URLto("user_edit","id",fmt.Sprint(user.ID)) }
-//  						hx-swap="innerHTML"
-//  						hx-target="#edit_user_content"
-// 					>
-// 						Edit 📝
-// 					</button>
-// 				</div>
-// 				<div class="col">
-// 					<button
-//  						type="button"
-//  						class="btn btn-outline-danger"
-//  						hx-confirm={ fmt.Sprintf("🗑 Delete user - %s",user.Email) }
-//  						hx-swap="innerHTML"
-//  						hx-delete={ v.URLto("user_delete","id",fmt.Sprint(user.ID)) }
-//  						hx-target="#users"
-// 					>
-// 						Delete 🗑
-// 					</button>
-// 				</div>
-// 			</div>
-// 		}
-// 		@Token(v.CsrfToken())
-// 	</div>
-// }

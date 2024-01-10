@@ -22,7 +22,9 @@ templ UserList(v *View, m Map) {
 				@UserContent(v, m)
 			</div>
 		</div>
-		@Modal("create_user")
+		@Modal("create_user") {
+			@UserCreate(v,m)
+		}
 		@Modal("edit_user")
 	}
 }

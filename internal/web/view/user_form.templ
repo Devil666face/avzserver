@@ -1,14 +1,14 @@
 package view
 
-templ userFromField(label string) {
-	<div class="mb-1">
-		<label>{ label }</label>
+templ userFormField(label string) {
+	<div class="form-floating">
 		{ children... }
+		<label>{ label }</label>
 	</div>
 }
 
 templ userFormCheck(label, name  string, checked bool) {
-	<div class="form-check form-switch mb-1">
+	<div class="form-check form-switch mt-1">
 		<input
 			class="form-check-input"
 			type="checkbox"
@@ -27,18 +27,18 @@ templ UserForm(v *View, m Map) {
 	@Token(v.CsrfToken())
 	<div class="modal-body">
 		@Alert(m)
-		@userFromField("📧 Email") {
+		@userFormField("📧 Email") {
 			<input
 				name="email"
 				required
-				placeholder="Email"
+				placeholder="📧 Email"
 				value={ m.getUser().Email }
 				type="email"
 				autofocus
 				class="form-control"
 			/>
 		}
-		@userFromField("🔒 Пароль") {
+		@userFormField("🔒 Пароль") {
 			<input
 				name="password"
 				type="password"
@@ -47,13 +47,13 @@ templ UserForm(v *View, m Map) {
 				autocomplete="new-password"
 				if m.notUser() {
 					required
-					placeholder="Пароль"
+					placeholder="🔒 Пароль"
 				} else {
-					placeholder="Оставьте пустым чтобы не менять пароль"
+					placeholder="🔒 Оставьте пустым чтобы не менять пароль"
 				}
 			/>
 		}
-		@userFromField("🔏 Подтверждение пароля") {
+		@userFormField("🔏 Подтверждение пароля") {
 			<input
 				name="password_confirm"
 				type="password"
@@ -62,27 +62,27 @@ templ UserForm(v *View, m Map) {
 				autocomplete="new-password"
 				if m.notUser() {
 					required
-					placeholder="Подтверждение пароля"
+					placeholder="🔏 Подтверждение пароля"
 				} else {
-					placeholder="Оставьте пустым чтобы не менять пароль"
+					placeholder="🔏 Оставьте пустым чтобы не менять пароль"
 				}
 			/>
 		}
-		@userFromField("🏢 Округ/ЦОВУ") {
+		@userFormField("🏢 Округ/ЦОВУ") {
 			<input
 				name="authority"
 				required
-				placeholder="Округ/ЦОВУ"
+				placeholder="🏢 Округ/ЦОВУ"
 				value={ m.getUser().Authority }
 				autofocus
 				class="form-control"
 			/>
 		}
-		@userFromField("🪖 Войсковая часть") {
+		@userFormField("🪖 Вч/Военный комиссариат") {
 			<input
 				name="unit"
 				required
-				placeholder="Войсковая часть"
+				placeholder="🪖 Вч/Военный комиссариат"
 				value={ m.getUser().Unit }
 				autofocus
 				class="form-control"
@@ -108,7 +108,7 @@ templ UserFormCommon(v *View, m Map) {
 	@Token(v.CsrfToken())
 	<div class="modal-body">
 		@Alert(m)
-		@userFromField("🔒 Пароль") {
+		@userFormField("🔒 Пароль") {
 			<input
 				name="password"
 				type="password"
@@ -118,7 +118,7 @@ templ UserFormCommon(v *View, m Map) {
 				placeholder="Оставьте пустым чтобы не менять пароль"
 			/>
 		}
-		@userFromField("🔏 Подтверждение пароля") {
+		@userFormField("🔏 Подтверждение пароля") {
 			<input
 				name="password_confirm"
 				type="password"
@@ -128,7 +128,7 @@ templ UserFormCommon(v *View, m Map) {
 				placeholder="Оставьте пустым чтобы не менять пароль"
 			/>
 		}
-		@userFromField("🏢 Округ/ЦОВУ") {
+		@userFormField("🏢 Округ/ЦОВУ") {
 			<input
 				name="authority"
 				required
@@ -138,7 +138,7 @@ templ UserFormCommon(v *View, m Map) {
 				class="form-control"
 			/>
 		}
-		@userFromField("🪖 Войсковая часть") {
+		@userFormField("🪖 Войсковая часть") {
 			<input
 				name="unit"
 				required

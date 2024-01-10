@@ -3,10 +3,12 @@ body {
   height: 100%;
 }
 
+.form-user .form-floating:focus-within,
 .form-signin .form-floating:focus-within {
   z-index: 2;
 }
 
+.form-user input[type="email"],
 .form-signin input[type="email"] {
   min-width: 330px;
   margin-bottom: -1px;
@@ -14,6 +16,7 @@ body {
   border-bottom-left-radius: 0;
 }
 
+.form-user input[name="unit"],
 .form-signin input[type="password"],
 .form-signin input[name="password_confirm"] {
   min-width: 330px;
@@ -21,6 +24,9 @@ body {
   border-top-right-radius: 0;
 }
 
+.form-user input[name="password"],
+.form-user input[name="password_confirm"],
+.form-user input[name="authority"],
 .form-signin input[name="authority"],
 .form-signin input[name="unit"] {
   min-width: 330px;
