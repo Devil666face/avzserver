@@ -69,10 +69,23 @@ templ Navbar(v *View, m Map) {
 						</a>
 					</li>
 				</ul>
+				<div class="d-flex">
+					<a
+						type="button"
+						class="nav-link"
+						data-bs-toggle="modal"
+						data-bs-target="#update_user"
+					>
+						🫡 { v.CurrentUser().Email }
+					</a>
+				</div>
 			</div>
 		</div>
 	</nav>
 	@onNavButtonClick()
+	@Modal("update_user") {
+		@UserEditCommon(v,m)
+	}
 }
 
 func getNavButtonClass(v *View, urlname string) string {

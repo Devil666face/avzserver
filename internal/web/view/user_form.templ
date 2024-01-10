@@ -103,3 +103,57 @@ templ UserForm(v *View, m Map) {
 		</div>
 	</div>
 }
+
+templ UserFormCommon(v *View, m Map) {
+	@Token(v.CsrfToken())
+	<div class="modal-body">
+		@Alert(m)
+		@userFromField("🔒 Пароль") {
+			<input
+				name="password"
+				type="password"
+				value=""
+				class="form-control"
+				autocomplete="new-password"
+				placeholder="Оставьте пустым чтобы не менять пароль"
+			/>
+		}
+		@userFromField("🔏 Подтверждение пароля") {
+			<input
+				name="password_confirm"
+				type="password"
+				value=""
+				class="form-control"
+				autocomplete="new-password"
+				placeholder="Оставьте пустым чтобы не менять пароль"
+			/>
+		}
+		@userFromField("🏢 Округ/ЦОВУ") {
+			<input
+				name="authority"
+				required
+				placeholder="Округ/ЦОВУ"
+				value={ v.CurrentUser().Authority }
+				autofocus
+				class="form-control"
+			/>
+		}
+		@userFromField("🪖 Войсковая часть") {
+			<input
+				name="unit"
+				required
+				placeholder="Войсковая часть"
+				value={ v.CurrentUser().Unit }
+				autofocus
+				class="form-control"
+			/>
+		}
+		<div class="modal-footer">
+			<input
+				type="submit"
+				class="btn btn-outline-secondary form-control"
+				value="📝 Изменить"
+			/>
+		</div>
+	</div>
+}
