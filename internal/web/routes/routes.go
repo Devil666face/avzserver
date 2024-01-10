@@ -19,7 +19,7 @@ type Router struct {
 	database    *database.Database
 	store       *session.Store
 	validator   *validators.Validator
-	mail        *mail.Smtp
+	mail        *mail.Mail
 	middlewares []func(*handlers.Handler) error
 }
 
@@ -29,7 +29,7 @@ func New(
 	_database *database.Database,
 	_store *session.Store,
 	_validator *validators.Validator,
-	_mail *mail.Smtp,
+	_mail *mail.Mail,
 ) *Router {
 	r := Router{
 		router:    _router,

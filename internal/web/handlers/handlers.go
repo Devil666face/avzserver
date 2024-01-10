@@ -21,7 +21,7 @@ type Handler struct {
 	config    *config.Config
 	store     *session.Store
 	validator *validators.Validator
-	mail      *mail.Smtp
+	mail      *mail.Mail
 	session   *fibersession.Session
 }
 
@@ -31,7 +31,7 @@ func New(
 	_config *config.Config,
 	_store *session.Store,
 	_validator *validators.Validator,
-	_mail *mail.Smtp,
+	_mail *mail.Mail,
 ) *Handler {
 	return &Handler{
 		c:         _c,
@@ -51,7 +51,7 @@ func (h *Handler) Config() *config.Config           { return h.config }
 func (h *Handler) Store() *fibersession.Store       { return h.store.Store() }
 func (h *Handler) Storage() fiber.Storage           { return h.store.Storage() }
 func (h *Handler) Validator() *validators.Validator { return h.validator }
-func (h *Handler) Mail() *mail.Smtp                 { return h.mail }
+func (h *Handler) Mail() *mail.Mail                 { return h.mail }
 
 func (h *Handler) Render(component func(*view.View, view.Map) templ.Component, m view.Map) error {
 	h.c.Response().Header.SetContentType(fiber.MIMETextHTMLCharsetUTF8)

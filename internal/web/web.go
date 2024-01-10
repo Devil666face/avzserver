@@ -27,7 +27,7 @@ type Web struct {
 	router    *routes.Router
 	store     *session.Store
 	validator *validators.Validator
-	mail      *mail.Smtp
+	mail      *mail.Mail
 	tables    []any
 }
 

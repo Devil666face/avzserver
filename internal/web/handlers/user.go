@@ -136,9 +136,7 @@ func UserDelete(h *Handler) error {
 }
 
 func UserActivate(h *Handler) error {
-	var (
-		u = models.User{}
-	)
+	u := models.User{}
 	email, otp := h.Ctx().Params("u"), h.Ctx().Params("otp")
 	if email == "" || otp == "" {
 		return fiber.ErrNotFound

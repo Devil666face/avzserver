@@ -8,7 +8,7 @@ import (
 	gomail "gopkg.in/mail.v2"
 )
 
-type Smtp struct {
+type Mail struct {
 	from   string
 	dialer *gomail.Dialer
 }
@@ -18,33 +18,31 @@ type Smtp struct {
 // _reciver=smtp@local.lan
 // _from=user@local.lan
 // _port=587
-func New(_config *config.Config) *Smtp {
+func New(_config *config.Config) *Mail {
 	d := gomail.NewDialer(
 		_config.SMTPReciver,
 		_config.SMTPPort,
 		_config.SMTPUser,
 		_config.SMTPPassword,
 	)
+	//nolint:gosec // Self-signed certs
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
-	return &Smtp{
+	return &Mail{
 		dialer: d,
 		from:   _config.SMTPEmail,
 	}
 }
 
-func (s *Smtp) Send(to, href string) error {
+func (s *Mail) Send(to, href string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", s.from)
 	m.SetHeader("To", to)
 	m.SetHeader("Subject", "Активация аккаунта")
 	m.SetBody("text/plain", href)
-	if err := s.dialer.DialAndSend(m); err != nil {
-		return err
-	}
-	return nil
+	return s.dialer.DialAndSend(m)
 }
 
-func (s *Smtp) MustSend(to, href string) {
+func (s *Mail) MustSend(to, href string) {
 	if err := s.Send(to, href); err != nil {
 		log.Info(err)
 	}
