@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/Devil666face/avzserver/assets"
 	"github.com/Devil666face/avzserver/internal/config"
+	"github.com/Devil666face/avzserver/internal/mail"
 	"github.com/Devil666face/avzserver/internal/store/database"
 	"github.com/Devil666face/avzserver/internal/store/session"
 	"github.com/Devil666face/avzserver/internal/web/handlers"
@@ -18,6 +19,7 @@ type Router struct {
 	database    *database.Database
 	store       *session.Store
 	validator   *validators.Validator
+	mail        *mail.Smtp
 	middlewares []func(*handlers.Handler) error
 }
 
@@ -27,6 +29,7 @@ func New(
 	_database *database.Database,
 	_store *session.Store,
 	_validator *validators.Validator,
+	_mail *mail.Smtp,
 ) *Router {
 	r := Router{
 		router:    _router,
@@ -34,6 +37,7 @@ func New(
 		database:  _database,
 		store:     _store,
 		validator: _validator,
+		mail:      _mail,
 		middlewares: []func(*handlers.Handler) error{
 			middlewares.Recover,
 			middlewares.Logger,
@@ -56,7 +60,7 @@ func New(
 
 func (r *Router) wrapper(handler func(*handlers.Handler) error) func(c *fiber.Ctx) error {
 	return func(c *fiber.Ctx) error {
-		return handler(handlers.New(c, r.database, r.config, r.store, r.validator))
+		return handler(handlers.New(c, r.database, r.config, r.store, r.validator, r.mail))
 	}
 }
 

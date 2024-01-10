@@ -29,6 +29,11 @@ type Config struct {
 	PostgresPassword  string `env:"POSTGRES_PASSWORD" env-default:"Qwerty123!"`
 	Superuser         string `env:"SUPERUSER" env-default:"superuser@local.lan"`
 	SuperuserPassword string `env:"SUPERUSER_PASSWORD" env-default:"Qwerty123!"`
+	SMTPUser          string `env:"SMTP_USER" env-default:""`
+	SMTPPassword      string `env:"SMTP_PASSOWRD" env-default:""`
+	SMTPReciver       string `env:"SMTP_RECIVER" env-default:""`
+	SMTPEmail         string `env:"SMTP_EMAIL" env-default:""`
+	SMTPPort          int    `env:"SMTP_PORT" env-default:"25"`
 	MaxQueryPerMinute int    `env:"MAX_QUERY_PER_MINUTE" env-default:"50"`
 	CookieKey         string `env:"COOKIE_KEY" env-default:"VtsTmAz5I7LUM3N2NA4J7eX1XC/gNzA8DUK1Ocssowo="`
 	// Use `openssl rand -base64 32` for get CookieKey

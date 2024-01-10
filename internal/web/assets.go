@@ -20,14 +20,6 @@ type Media struct {
 	handler fiber.Static
 }
 
-// func NewStatic() func(*fiber.Ctx) error {
-// 	return filesystem.New(filesystem.Config{
-// 		Root:       http.FS(assets.StaticFS),
-// 		PathPrefix: assets.DirStatic,
-// 		MaxAge:     86400,
-// 	})
-// }
-
 func MustMedia() *Media {
 	path, err := utils.SetDir(assets.DirMedia)
 	if err != nil {

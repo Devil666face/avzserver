@@ -7,6 +7,7 @@ import (
 
 	"github.com/Devil666face/avzserver/assets"
 	"github.com/Devil666face/avzserver/internal/config"
+	"github.com/Devil666face/avzserver/internal/mail"
 	"github.com/Devil666face/avzserver/internal/models"
 	"github.com/Devil666face/avzserver/internal/store/database"
 	"github.com/Devil666face/avzserver/internal/store/session"
@@ -26,6 +27,7 @@ type Web struct {
 	router    *routes.Router
 	store     *session.Store
 	validator *validators.Validator
+	mail      *mail.Smtp
 	tables    []any
 }
 
@@ -46,6 +48,7 @@ func New() *Web {
 		},
 	}
 	a.setStores()
+	a.setMail()
 	a.setStatic()
 	a.setRoutes()
 	return a
@@ -56,13 +59,16 @@ func (a *Web) setStores() {
 	a.store = session.New(a.config, a.database)
 }
 
+func (a *Web) setMail() {
+	a.mail = mail.New(a.config)
+}
+
 func (a *Web) setStatic() {
-	// a.fiber.Use(routes.StaticPrefix, a.static)
 	a.fiber.Static(assets.DirMedia, a.media.path, a.media.handler)
 }
 
 func (a *Web) setRoutes() {
-	a.router = routes.New(a.fiber, a.config, a.database, a.store, a.validator)
+	a.router = routes.New(a.fiber, a.config, a.database, a.store, a.validator, a.mail)
 }
 
 func (a *Web) Listen() error {

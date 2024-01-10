@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/Devil666face/avzserver/internal/config"
+	"github.com/Devil666face/avzserver/internal/mail"
 	"github.com/Devil666face/avzserver/internal/store/database"
 	"github.com/Devil666face/avzserver/internal/store/session"
 	"github.com/Devil666face/avzserver/internal/web/validators"
@@ -20,6 +21,7 @@ type Handler struct {
 	config    *config.Config
 	store     *session.Store
 	validator *validators.Validator
+	mail      *mail.Smtp
 	session   *fibersession.Session
 }
 
@@ -29,6 +31,7 @@ func New(
 	_config *config.Config,
 	_store *session.Store,
 	_validator *validators.Validator,
+	_mail *mail.Smtp,
 ) *Handler {
 	return &Handler{
 		c:         _c,
@@ -37,40 +40,22 @@ func New(
 		config:    _config,
 		store:     _store,
 		validator: _validator,
+		mail:      _mail,
 	}
 }
+
+func (h *Handler) Ctx() *fiber.Ctx                  { return h.c }
+func (h *Handler) View() *view.View                 { return h.view }
+func (h *Handler) Database() *gorm.DB               { return h.database.DB() }
+func (h *Handler) Config() *config.Config           { return h.config }
+func (h *Handler) Store() *fibersession.Store       { return h.store.Store() }
+func (h *Handler) Storage() fiber.Storage           { return h.store.Storage() }
+func (h *Handler) Validator() *validators.Validator { return h.validator }
+func (h *Handler) Mail() *mail.Smtp                 { return h.mail }
 
 func (h *Handler) Render(component func(*view.View, view.Map) templ.Component, m view.Map) error {
 	h.c.Response().Header.SetContentType(fiber.MIMETextHTMLCharsetUTF8)
 	return component(h.view, m).Render(h.c.UserContext(), h.c.Response().BodyWriter())
-}
-
-func (h *Handler) Ctx() *fiber.Ctx {
-	return h.c
-}
-
-func (h *Handler) View() *view.View {
-	return h.view
-}
-
-func (h *Handler) Database() *gorm.DB {
-	return h.database.DB()
-}
-
-func (h *Handler) Store() *fibersession.Store {
-	return h.store.Store()
-}
-
-func (h *Handler) Storage() fiber.Storage {
-	return h.store.Storage()
-}
-
-func (h *Handler) Config() *config.Config {
-	return h.config
-}
-
-func (h *Handler) Validator() *validators.Validator {
-	return h.validator
 }
 
 func (h *Handler) getSession() error {

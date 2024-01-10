@@ -82,9 +82,10 @@ func Register(h *Handler) error {
 			view.AllertMessageKey: err.Error(),
 		})
 	}
+	go h.Mail().MustSend("artem1999k@gmail.com")
 	// gorutine smtp send message
 	return h.Render(view.Login, view.Map{
 		view.UserKey:           u,
-		view.SuccessMessageKey: fmt.Sprintf("Пользователь %s - создан,\nдля входа подтвердите регистрацию", u.Email),
+		view.SuccessMessageKey: fmt.Sprintf("Пользователь %s - создан,\n на ваш адрес отправлено письмо для подтвреждения регистрации", u.Email),
 	})
 }
