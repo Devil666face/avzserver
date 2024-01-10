@@ -32,20 +32,20 @@ func New(_config *config.Config) *Smtp {
 	}
 }
 
-func (s *Smtp) Send(to string) error {
+func (s *Smtp) Send(to, href string) error {
 	m := gomail.NewMessage()
 	m.SetHeader("From", s.from)
 	m.SetHeader("To", to)
-	m.SetHeader("Subject", "Gomail test subject")
-	m.SetBody("text/plain", "This is Gomail test body")
+	m.SetHeader("Subject", "Активация аккаунта")
+	m.SetBody("text/plain", href)
 	if err := s.dialer.DialAndSend(m); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *Smtp) MustSend(to string) {
-	if err := s.Send(to); err != nil {
+func (s *Smtp) MustSend(to, href string) {
+	if err := s.Send(to, href); err != nil {
 		log.Info(err)
 	}
 }

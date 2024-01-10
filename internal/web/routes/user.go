@@ -7,6 +7,11 @@ import (
 
 func (r *Router) setUser() {
 	user := r.router.Group("/user")
+	user.Get(
+		"/activate/:u/:otp",
+		r.wrapper(handlers.UserActivate),
+	).Name("user_activate")
+
 	user.Use(r.wrapper(middlewares.Auth))
 	user.Use(r.wrapper(middlewares.Admin))
 

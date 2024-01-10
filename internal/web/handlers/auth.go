@@ -50,14 +50,14 @@ func Login(h *Handler) error {
 	if err := u.Update(h.Database()); err != nil {
 		return ErrInSession
 	}
-	return h.View().ClientRedirect(h.View().URL("index"))
+	return h.View().SetClientRedirect(h.View().URL("index"))
 }
 
 func Logout(h *Handler) error {
 	if err := h.DestroySession(); err != nil {
 		return ErrInSession
 	}
-	return h.View().ClientRedirect(h.View().URL("login"))
+	return h.View().SetClientRedirect(h.View().URL("login"))
 }
 
 func RegisterPage(h *Handler) error {
@@ -75,15 +75,16 @@ func Register(h *Handler) error {
 			view.AllertMessageKey: err.Error(),
 		})
 	}
-	u.Active = false
-	u.Admin = false
+	u.Active, u.Admin = false, false
 	if err := u.Create(h.Database()); err != nil {
 		return h.Render(view.Register, view.Map{
 			view.AllertMessageKey: err.Error(),
 		})
 	}
-	go h.Mail().MustSend("artem1999k@gmail.com")
-	// gorutine smtp send message
+
+	// go h.Mail().MustSend("artem1999k@gmail.com", h.View().ActivateURL(u))
+	go h.Mail().MustSend(u.Email, h.View().ActivateURL(u))
+
 	return h.Render(view.Login, view.Map{
 		view.UserKey:           u,
 		view.SuccessMessageKey: fmt.Sprintf("Пользователь %s - создан,\n на ваш адрес отправлено письмо для подтвреждения регистрации", u.Email),

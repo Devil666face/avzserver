@@ -134,3 +134,30 @@ func UserDelete(h *Handler) error {
 		view.UsersKey: models.GetAllUsers(h.Database()),
 	})
 }
+
+func UserActivate(h *Handler) error {
+	var (
+		u = models.User{}
+	)
+	email, otp := h.Ctx().Params("u"), h.Ctx().Params("otp")
+	if email == "" || otp == "" {
+		return fiber.ErrNotFound
+	}
+	if err := u.GetByUsername(h.Database(), email); err != nil {
+		return fiber.ErrNotFound
+	}
+	if u.Active {
+		return fiber.ErrNotFound
+	}
+	if u.OneTimeCode != otp {
+		return fiber.ErrNotFound
+	}
+	u.Active, u.OneTimeCode = true, ""
+	if err := u.Update(h.Database()); err != nil {
+		return fiber.ErrNotFound
+	}
+	return h.Render(view.Login, view.Map{
+		view.UserKey:           u,
+		view.SuccessMessageKey: fmt.Sprintf("Пользователь %s - активирован", u.Email),
+	})
+}

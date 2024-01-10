@@ -67,6 +67,13 @@ func (c View) getRouteURL(name string, fmap fiber.Map) string {
 	return url
 }
 
+func (c View) ActivateURL(u models.User) string {
+	return c.BaseURL() + c.getRouteURL("user_activate", fiber.Map{
+		"u":   u.Email,
+		"otp": u.OneTimeCode,
+	})
+}
+
 func (c View) IsHtmx() bool {
 	if htmx, ok := c.Locals(Htmx).(bool); ok {
 		return htmx
@@ -74,7 +81,7 @@ func (c View) IsHtmx() bool {
 	return false
 }
 
-func (c View) ClientRedirect(redirectURL string) error {
+func (c View) SetClientRedirect(redirectURL string) error {
 	c.Set(HXRedirect, redirectURL)
 	return c.SendStatus(fiber.StatusFound)
 }
