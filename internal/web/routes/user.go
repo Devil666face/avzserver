@@ -13,6 +13,13 @@ func (r *Router) setUser() {
 	).Name("user_activate")
 
 	user.Use(r.wrapper(middlewares.Auth))
+
+	user.Put(
+		"/update",
+		r.wrapper(middlewares.HxOnly),
+		r.wrapper(handlers.UserUpdate),
+	).Name("user_update")
+
 	user.Use(r.wrapper(middlewares.Admin))
 
 	user.Get(

@@ -111,6 +111,38 @@ func UserEdit(h *Handler) error {
 	})
 }
 
+func UserUpdate(h *Handler) error {
+	var (
+		u  = h.View().CurrentUser()
+		in = models.User{}
+	)
+	if err := h.Ctx().BodyParser(&in); err != nil {
+		return err
+	}
+	in.Email = u.Email
+	if err := in.Validate(h.Validator()); err != nil {
+		if errors.Is(err, validators.ErrPasswordRequired) {
+			in.Password, in.PasswordConfirm = u.Password, u.Password
+		} else {
+			return h.Render(view.UserUpdate, view.Map{
+				view.UserKey:          u,
+				view.AllertMessageKey: err.Error(),
+			})
+		}
+	}
+	u.Password, u.Authority, u.Unit = in.Password, in.Authority, in.Unit
+	if err := u.Update(h.Database()); err != nil {
+		return h.Render(view.UserUpdate, view.Map{
+			view.UserKey:          u,
+			view.AllertMessageKey: err.Error(),
+		})
+	}
+	h.Ctx().Locals(view.UserKey, u)
+	return h.Render(view.UserUpdate, view.Map{
+		view.SuccessMessageKey: "Пользователь обновлен",
+	})
+}
+
 func UserDelete(h *Handler) error {
 	u := models.User{}
 	if err := h.Ctx().BodyParser(&u); err != nil {

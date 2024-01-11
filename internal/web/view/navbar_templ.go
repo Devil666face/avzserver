@@ -169,7 +169,7 @@ func Navbar(v *View, m Map) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			templ_7745c5c3_Err = UserEditCommon(v, m).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = UserUpdate(v, m).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

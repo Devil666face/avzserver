@@ -104,7 +104,7 @@ func emailField(m Map) templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"email\" name=\"email\" autocapitalize=\"none\" autocomplete=\"username\" maxlength=\"150\" class=\"form-control\" placeholder=\"Email\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"email\" name=\"email\" autocapitalize=\"none\" autocomplete=\"username\" maxlength=\"150\" class=\"form-control\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -145,7 +145,7 @@ func passwordField() templ.Component {
 			templ_7745c5c3_Var6 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"form-floating\"><input type=\"password\" name=\"password\" autocomplete=\"current-password\" class=\"form-control\" placeholder=\"Пароль\" required> <label>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"form-floating\"><input type=\"password\" name=\"password\" autocomplete=\"current-password\" class=\"form-control\" required> <label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

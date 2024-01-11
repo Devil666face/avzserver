@@ -1,0 +1,13 @@
+package view
+
+templ UserUpdate(v *View, m Map) {
+	@ModalCommonUser(v,m)
+	<form
+		hx-put={ v.URL("user_update") }
+		hx-swap="innerHTML"
+		hx-target="#update_user_content"
+		class="form-user-update"
+	>
+		@UserFormCommon(v,m)
+	</form>
+}

@@ -9,6 +9,7 @@ body {
 }
 
 .form-user input[type="email"],
+.form-user-update input[name="password"],
 .form-signin input[type="email"] {
   min-width: 330px;
   margin-bottom: -1px;
@@ -17,6 +18,7 @@ body {
 }
 
 .form-user input[name="unit"],
+.form-user-update input[name="unit"],
 .form-signin input[type="password"],
 .form-signin input[name="password_confirm"] {
   min-width: 330px;
@@ -27,6 +29,8 @@ body {
 .form-user input[name="password"],
 .form-user input[name="password_confirm"],
 .form-user input[name="authority"],
+.form-user-update input[name="password_confirm"],
+.form-user-update input[name="authority"],
 .form-signin input[name="authority"],
 .form-signin input[name="unit"] {
   min-width: 330px;

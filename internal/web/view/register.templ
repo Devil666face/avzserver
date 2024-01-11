@@ -6,7 +6,6 @@ templ authorityField(m Map) {
 		autocapitalize="none"
 		autocomplete="authority"
 		class="form-control"
-		placeholder="Округ/ЦОВУ"
 		value={ m.getUser().Authority }
 		required
 	/>
@@ -19,7 +18,6 @@ templ unitField(m Map) {
 		autocapitalize="none"
 		autocomplete="unit"
 		class="form-control"
-		placeholder="Войсковая часть"
 		value={ m.getUser().Unit }
 		required
 	/>
@@ -32,7 +30,6 @@ templ passwordConfirmField() {
 		name="password_confirm"
 		autocomplete="current-password"
 		class="form-control"
-		placeholder="Подтверждение пароля"
 		required
 	/>
 	<label for="floatingPassword">🔏 Подтверждение пароля</label>

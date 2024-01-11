@@ -21,3 +21,17 @@ templ ModalUser(v *View, m Map) {
 		></button>
 	</div>
 }
+
+templ ModalCommonUser(v *View, m Map) {
+	<div class="modal-header">
+		<h1 class="modal-title fs-5" id="staticBackdropLabel">
+			📝 { v.CurrentUser().Email } - изменить
+		</h1>
+		<button
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="modal"
+			aria-label="Close"
+		></button>
+	</div>
+}

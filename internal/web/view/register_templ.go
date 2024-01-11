@@ -23,7 +23,7 @@ func authorityField(m Map) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"authority\" autocapitalize=\"none\" autocomplete=\"authority\" class=\"form-control\" placeholder=\"Округ/ЦОВУ\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"authority\" autocapitalize=\"none\" autocomplete=\"authority\" class=\"form-control\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -64,7 +64,7 @@ func unitField(m Map) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"unit\" autocapitalize=\"none\" autocomplete=\"unit\" class=\"form-control\" placeholder=\"Войсковая часть\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"unit\" autocapitalize=\"none\" autocomplete=\"unit\" class=\"form-control\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -105,7 +105,7 @@ func passwordConfirmField() templ.Component {
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"password\" name=\"password_confirm\" autocomplete=\"current-password\" class=\"form-control\" placeholder=\"Подтверждение пароля\" required> <label for=\"floatingPassword\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"password\" name=\"password_confirm\" autocomplete=\"current-password\" class=\"form-control\" required> <label for=\"floatingPassword\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

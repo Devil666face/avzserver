@@ -30,26 +30,21 @@ templ UserForm(v *View, m Map) {
 		@userFormField("📧 Email") {
 			<input
 				name="email"
-				required
-				placeholder="📧 Email"
 				value={ m.getUser().Email }
 				type="email"
-				autofocus
 				class="form-control"
+				required
+				autofocus
 			/>
 		}
 		@userFormField("🔒 Пароль") {
 			<input
 				name="password"
 				type="password"
-				value=""
 				class="form-control"
 				autocomplete="new-password"
 				if m.notUser() {
 					required
-					placeholder="🔒 Пароль"
-				} else {
-					placeholder="🔒 Оставьте пустым чтобы не менять пароль"
 				}
 			/>
 		}
@@ -57,35 +52,29 @@ templ UserForm(v *View, m Map) {
 			<input
 				name="password_confirm"
 				type="password"
-				value=""
 				class="form-control"
 				autocomplete="new-password"
 				if m.notUser() {
 					required
-					placeholder="🔏 Подтверждение пароля"
-				} else {
-					placeholder="🔏 Оставьте пустым чтобы не менять пароль"
 				}
 			/>
 		}
 		@userFormField("🏢 Округ/ЦОВУ") {
 			<input
 				name="authority"
-				required
-				placeholder="🏢 Округ/ЦОВУ"
 				value={ m.getUser().Authority }
-				autofocus
 				class="form-control"
+				required
+				autofocus
 			/>
 		}
 		@userFormField("🪖 Вч/Военный комиссариат") {
 			<input
 				name="unit"
-				required
-				placeholder="🪖 Вч/Военный комиссариат"
 				value={ m.getUser().Unit }
-				autofocus
 				class="form-control"
+				required
+				autofocus
 			/>
 		}
 		@userFormCheck("👨‍🔧 Администратор","admin",m.getUser().Admin)
@@ -112,43 +101,37 @@ templ UserFormCommon(v *View, m Map) {
 			<input
 				name="password"
 				type="password"
-				value=""
 				class="form-control"
 				autocomplete="new-password"
-				placeholder="Оставьте пустым чтобы не менять пароль"
 			/>
 		}
 		@userFormField("🔏 Подтверждение пароля") {
 			<input
 				name="password_confirm"
 				type="password"
-				value=""
 				class="form-control"
 				autocomplete="new-password"
-				placeholder="Оставьте пустым чтобы не менять пароль"
 			/>
 		}
 		@userFormField("🏢 Округ/ЦОВУ") {
 			<input
 				name="authority"
-				required
-				placeholder="Округ/ЦОВУ"
 				value={ v.CurrentUser().Authority }
-				autofocus
 				class="form-control"
+				required
+				autofocus
 			/>
 		}
 		@userFormField("🪖 Войсковая часть") {
 			<input
 				name="unit"
-				required
-				placeholder="Войсковая часть"
 				value={ v.CurrentUser().Unit }
-				autofocus
 				class="form-control"
+				required
+				autofocus
 			/>
 		}
-		<div class="modal-footer">
+		<div class="modal-footer mt-2">
 			<input
 				type="submit"
 				class="btn btn-outline-secondary form-control"
