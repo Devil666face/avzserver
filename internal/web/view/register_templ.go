@@ -31,7 +31,7 @@ func authorityField(m Map) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" required> <label for=\"floatingInput\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" placeholder required> <label for=\"floatingInput\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -72,7 +72,7 @@ func unitField(m Map) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" required> <label for=\"floatingInput\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" placeholder required> <label for=\"floatingInput\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -105,7 +105,7 @@ func passwordConfirmField() templ.Component {
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"password\" name=\"password_confirm\" autocomplete=\"current-password\" class=\"form-control\" required> <label for=\"floatingPassword\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"password\" name=\"password_confirm\" autocomplete=\"current-password\" class=\"form-control\" placeholder required> <label for=\"floatingPassword\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

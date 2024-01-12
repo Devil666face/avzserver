@@ -32,7 +32,7 @@ templ emailField(m Map) {
 		required
 		autofocus
 	/>
-	<label>Email</label>
+	<label>📧 Email</label>
 }
 
 templ passwordField() {
@@ -45,7 +45,7 @@ templ passwordField() {
 			placeholder
 			required
 		/>
-		<label>Пароль</label>
+		<label>🔒 Пароль</label>
 	</div>
 }
 
@@ -73,7 +73,7 @@ templ Login(v *View, m Map) {
 					class={ authButtonClass() }
 					type="submit"
 				>
-					Войти
+					➡️ Войти
 				</button>
 				<button
 					class={ authButtonClass() }
@@ -83,7 +83,7 @@ templ Login(v *View, m Map) {
 					hx-target="#auth_form"
 					hx-select="#auth_form"
 				>
-					Регистрация
+					🆕 Регистрация
 				</button>
 			</form>
 			@Token(v.CsrfToken())
