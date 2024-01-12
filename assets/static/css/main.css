@@ -39,3 +39,12 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-text {
+  margin-left: 10px;
+}

@@ -15,9 +15,9 @@ templ Navbar(v *View, m Map) {
 				hx-push-url="true"
 				onclick="onNavButtonClick(this)"
 			>
-				@icon("ban")
-				@icon("virus")
-				Anti-virus bases			
+				@icon("helmet") {
+					Anti-virus bases			
+				}
 			</a>
 			<button
 				class="navbar-toggler"
@@ -42,8 +42,9 @@ templ Navbar(v *View, m Map) {
 							hx-push-url="true"
 							onclick="onNavButtonClick(this)"
 						>
-							@icon("database-lock")
-							Базы
+							@icon("folder") {
+								Базы
+							}
 						</a>
 					</li>
 					if v.CurrentUser().Admin {
@@ -58,8 +59,9 @@ templ Navbar(v *View, m Map) {
 								hx-push-url="true"
 								onclick="onNavButtonClick(this)"
 							>
-								@icon("person-gear")
-								Пользователи
+								@icon("users") {
+									Пользователи
+								}
 							</a>
 						</li>
 					}
@@ -69,7 +71,9 @@ templ Navbar(v *View, m Map) {
 							class="nav-link"
 							hx-post={ v.URL("logout") }
 						>
-							✋ Выйти
+							@icon("exit") {
+								Выйти
+							}
 						</a>
 					</li>
 				</ul>
@@ -80,7 +84,9 @@ templ Navbar(v *View, m Map) {
 						data-bs-toggle="modal"
 						data-bs-target="#update_user"
 					>
-						🫡 { v.CurrentUser().Email }
+						@icon("user") {
+							{ v.CurrentUser().Email }
+						}
 					</a>
 				</div>
 			</div>

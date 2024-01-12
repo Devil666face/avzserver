@@ -28,11 +28,11 @@ templ emailField(m Map) {
 		maxlength="150"
 		class="form-control"
 		value={ m.getUser().Email }
-		placeholder="📧 Email"
+		placeholder
 		required
 		autofocus
 	/>
-	<label>📧 Email</label>
+	<label>Email</label>
 }
 
 templ passwordField() {
@@ -42,10 +42,10 @@ templ passwordField() {
 			name="password"
 			autocomplete="current-password"
 			class="form-control"
-			placeholder="🔒 Пароль"
+			placeholder
 			required
 		/>
-		<label>🔒 Пароль</label>
+		<label>Пароль</label>
 	</div>
 }
 
@@ -73,7 +73,7 @@ templ Login(v *View, m Map) {
 					class={ authButtonClass() }
 					type="submit"
 				>
-					🔑 Войти
+					Войти
 				</button>
 				<button
 					class={ authButtonClass() }
@@ -83,7 +83,7 @@ templ Login(v *View, m Map) {
 					hx-target="#auth_form"
 					hx-select="#auth_form"
 				>
-					👤 Регистрация
+					Регистрация
 				</button>
 			</form>
 			@Token(v.CsrfToken())
