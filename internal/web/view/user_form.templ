@@ -83,7 +83,7 @@ templ UserForm(v *View, m Map) {
 		@userFormCheck("👨‍🔧 Администратор","admin",m.getUser().Admin)
 		@userFormCheck("✅ Активен","active",m.getUser().Active)
 		if !v.IsURL("user_create") {
-			<div class="form-text">Оставьте поле с паролем пустыми, если не хотите его менять</div>
+			<div class="form-text p-2">Оставьте поле с паролем пустыми, если не хотите его менять</div>
 		}
 		<div class="modal-footer">
 			<input
@@ -141,7 +141,7 @@ templ UserFormCommon(v *View, m Map) {
 				autofocus
 			/>
 		}
-		<div class="form-text">Оставьте поле с паролем пустыми, если не хотите его менять</div>
+		<div class="form-text p-2">Оставьте поле с паролем пустыми, если не хотите его менять</div>
 		<div class="modal-footer mt-2">
 			<input
 				type="submit"
