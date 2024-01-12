@@ -28,6 +28,7 @@ templ emailField(m Map) {
 		maxlength="150"
 		class="form-control"
 		value={ m.getUser().Email }
+		placeholder="📧 Email"
 		required
 		autofocus
 	/>
@@ -41,6 +42,7 @@ templ passwordField() {
 			name="password"
 			autocomplete="current-password"
 			class="form-control"
+			placeholder="🔒 Пароль"
 			required
 		/>
 		<label>🔒 Пароль</label>

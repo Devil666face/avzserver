@@ -112,7 +112,7 @@ func emailField(m Map) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" required autofocus> <label>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" placeholder=\"📧 Email\" required autofocus> <label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -145,7 +145,7 @@ func passwordField() templ.Component {
 			templ_7745c5c3_Var6 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"form-floating\"><input type=\"password\" name=\"password\" autocomplete=\"current-password\" class=\"form-control\" required> <label>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"form-floating\"><input type=\"password\" name=\"password\" autocomplete=\"current-password\" class=\"form-control\" placeholder=\"🔒 Пароль\" required> <label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

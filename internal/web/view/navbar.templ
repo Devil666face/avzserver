@@ -15,7 +15,9 @@ templ Navbar(v *View, m Map) {
 				hx-push-url="true"
 				onclick="onNavButtonClick(this)"
 			>
-				🚫🦠 Anti-virus bases			
+				@icon("ban")
+				@icon("virus")
+				Anti-virus bases			
 			</a>
 			<button
 				class="navbar-toggler"
@@ -40,7 +42,8 @@ templ Navbar(v *View, m Map) {
 							hx-push-url="true"
 							onclick="onNavButtonClick(this)"
 						>
-							📦 Базы
+							@icon("database-lock")
+							Базы
 						</a>
 					</li>
 					if v.CurrentUser().Admin {
@@ -55,7 +58,8 @@ templ Navbar(v *View, m Map) {
 								hx-push-url="true"
 								onclick="onNavButtonClick(this)"
 							>
-								👥 Пользователи
+								@icon("person-gear")
+								Пользователи
 							</a>
 						</li>
 					}
