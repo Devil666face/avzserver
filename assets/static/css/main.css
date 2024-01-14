@@ -10,7 +10,7 @@ body {
 
 @font-face {
   font-family: 'Emoji';
-  src: url('/static/fonts/NotoColorEmoji-Regular.ttf') format('truetype');
+  src: url('/static/fonts/NotoEmoji-Bold.ttf') format('truetype');
 }
 
 @font-face {
