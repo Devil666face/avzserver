@@ -15,7 +15,7 @@ templ Navbar(v *View, m Map) {
 				hx-push-url="true"
 				onclick="onNavButtonClick(this)"
 			>
-				@icon("helmet") {
+				@emoji("🚫☣️") {
 					Anti-virus bases			
 				}
 			</a>
@@ -42,8 +42,8 @@ templ Navbar(v *View, m Map) {
 							hx-push-url="true"
 							onclick="onNavButtonClick(this)"
 						>
-							@icon("folder") {
-								Базы
+							@emoji("📦") {
+								Базы						
 							}
 						</a>
 					</li>
@@ -59,7 +59,7 @@ templ Navbar(v *View, m Map) {
 								hx-push-url="true"
 								onclick="onNavButtonClick(this)"
 							>
-								@icon("users") {
+								@emoji("👥") {
 									Пользователи
 								}
 							</a>
@@ -71,7 +71,7 @@ templ Navbar(v *View, m Map) {
 							class="nav-link"
 							hx-post={ v.URL("logout") }
 						>
-							@icon("exit") {
+							@emoji("✋") {
 								Выйти
 							}
 						</a>
@@ -84,7 +84,7 @@ templ Navbar(v *View, m Map) {
 						data-bs-toggle="modal"
 						data-bs-target="#update_user"
 					>
-						@icon("user") {
+						@emoji("👤") {
 							{ v.CurrentUser().Email }
 						}
 					</a>

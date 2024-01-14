@@ -1,13 +1,17 @@
 package view
 
-templ userFormField(label string) {
+templ userFormField(icon,label string) {
 	<div class="form-floating">
 		{ children... }
-		<label>{ label }</label>
+		<label>
+			@emoji(icon) {
+				{ label }
+			}
+		</label>
 	</div>
 }
 
-templ userFormCheck(label, name  string, checked bool) {
+templ userFormCheck(icon,label,name  string, checked bool) {
 	<div class="form-check form-switch mt-1">
 		<input
 			class="form-check-input"
@@ -19,7 +23,11 @@ templ userFormCheck(label, name  string, checked bool) {
 				checked
 			}
 		/>
-		<label class="form-check-label">{ label }</label>
+		<label class="form-check-label">
+			@emoji(icon) {
+				{ label }
+			}
+		</label>
 	</div>
 }
 
@@ -27,7 +35,7 @@ templ UserForm(v *View, m Map) {
 	@Token(v.CsrfToken())
 	<div class="modal-body">
 		@Alert(m)
-		@userFormField("📧 Email") {
+		@userFormField("📧","Email") {
 			<input
 				name="email"
 				value={ m.getUser().Email }
@@ -38,7 +46,7 @@ templ UserForm(v *View, m Map) {
 				placeholder
 			/>
 		}
-		@userFormField("🔒 Пароль") {
+		@userFormField("🔒","Пароль") {
 			<input
 				name="password"
 				type="password"
@@ -50,7 +58,7 @@ templ UserForm(v *View, m Map) {
 				}
 			/>
 		}
-		@userFormField("🔏 Подтверждение пароля") {
+		@userFormField("🔏","Подтверждение пароля") {
 			<input
 				name="password_confirm"
 				type="password"
@@ -62,7 +70,7 @@ templ UserForm(v *View, m Map) {
 				}
 			/>
 		}
-		@userFormField("🏢 Округ/ЦОВУ") {
+		@userFormField("🏢","Округ/ЦОВУ") {
 			<input
 				name="authority"
 				value={ m.getUser().Authority }
@@ -71,7 +79,7 @@ templ UserForm(v *View, m Map) {
 				placeholder
 			/>
 		}
-		@userFormField("🪖 Вч/Военный комиссариат") {
+		@userFormField("🏛","Вч/Военный комиссариат") {
 			<input
 				name="unit"
 				value={ m.getUser().Unit }
@@ -80,21 +88,26 @@ templ UserForm(v *View, m Map) {
 				placeholder
 			/>
 		}
-		@userFormCheck("👨‍🔧 Администратор","admin",m.getUser().Admin)
-		@userFormCheck("✅ Активен","active",m.getUser().Active)
+		@userFormCheck("👨‍🔧","Администратор","admin",m.getUser().Admin)
+		@userFormCheck("✅","Активен","active",m.getUser().Active)
 		if !v.IsURL("user_create") {
 			<div class="form-text p-2">Оставьте поле с паролем пустыми, если не хотите его менять</div>
 		}
 		<div class="modal-footer">
-			<input
+			<button
 				type="submit"
 				class="btn btn-outline-secondary form-control"
+			>
 				if v.IsURL("user_create") {
-					value="🆕 Создать"
+					@emoji("🆕") {
+						Создать
+					}
 				} else {
-					value="📝 Изменить"
+					@emoji("✏️") {
+						Изменить
+					}
 				}
-			/>
+			</button>
 		</div>
 	</div>
 }
@@ -103,7 +116,7 @@ templ UserFormCommon(v *View, m Map) {
 	@Token(v.CsrfToken())
 	<div class="modal-body">
 		@Alert(m)
-		@userFormField("🔒 Пароль") {
+		@userFormField("🔒","Пароль") {
 			<input
 				name="password"
 				type="password"
@@ -112,7 +125,7 @@ templ UserFormCommon(v *View, m Map) {
 				placeholder
 			/>
 		}
-		@userFormField("🔏 Подтверждение пароля") {
+		@userFormField("🔏","Подтверждение пароля") {
 			<input
 				name="password_confirm"
 				type="password"
@@ -121,7 +134,7 @@ templ UserFormCommon(v *View, m Map) {
 				placeholder
 			/>
 		}
-		@userFormField("🏢 Округ/ЦОВУ") {
+		@userFormField("🏢","Округ/ЦОВУ") {
 			<input
 				name="authority"
 				value={ v.CurrentUser().Authority }
@@ -131,7 +144,7 @@ templ UserFormCommon(v *View, m Map) {
 				autofocus
 			/>
 		}
-		@userFormField("🪖 Войсковая часть") {
+		@userFormField("🏛","Войсковая часть") {
 			<input
 				name="unit"
 				value={ v.CurrentUser().Unit }
@@ -143,11 +156,14 @@ templ UserFormCommon(v *View, m Map) {
 		}
 		<div class="form-text p-2">Оставьте поле с паролем пустыми, если не хотите его менять</div>
 		<div class="modal-footer mt-2">
-			<input
+			<button
 				type="submit"
 				class="btn btn-outline-secondary form-control"
-				value="📝 Изменить"
-			/>
+			>
+				@emoji("✏️") {
+					Изменить
+				}
+			</button>
 		</div>
 	</div>
 }

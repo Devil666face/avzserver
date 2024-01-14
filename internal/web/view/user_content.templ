@@ -5,11 +5,8 @@ import "fmt"
 
 templ userContentBoolValue(val bool) {
 	if val {
-		✅
+		@emoji("✅")
 	}
-	// else {
-	// 	❌
-	// }
 }
 
 templ UserContent(v *View, m Map) {
@@ -50,19 +47,19 @@ templ UserContent(v *View, m Map) {
 								hx-swap="innerHTML"
 								hx-target="#edit_user_content"
 							>
-								📝
+								@emoji("✏️")
 							</button>
 						</td>
 						<td>
 							<button
 								type="button"
 								class="btn btn-outline-danger"
-								hx-confirm={ fmt.Sprintf("🗑 Удалить пользователя - %s?", user.Email) }
+								hx-confirm={ fmt.Sprintf("❌ Удалить пользователя - %s?", user.Email) }
 								hx-swap="innerHTML"
 								hx-delete={ v.URLto("user_delete", "id", fmt.Sprint(user.ID)) }
 								hx-target="#users"
 							>
-								🗑
+								@emoji("❌")
 							</button>
 						</td>
 					</tr>

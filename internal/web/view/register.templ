@@ -10,7 +10,11 @@ templ authorityField(m Map) {
 		placeholder
 		required
 	/>
-	<label for="floatingInput">🏢 Округ/ЦОВУ</label>
+	<label for="floatingInput">
+		@emoji("🏢") {
+			Округ/ЦОВУ
+		}
+	</label>
 }
 
 templ unitField(m Map) {
@@ -23,7 +27,11 @@ templ unitField(m Map) {
 		placeholder
 		required
 	/>
-	<label for="floatingInput">🪖 Вч/Военный комиссариат</label>
+	<label for="floatingInput">
+		@emoji("🏛") {
+			Вч/Военный комиссариат
+		}
+	</label>
 }
 
 templ passwordConfirmField() {
@@ -35,7 +43,11 @@ templ passwordConfirmField() {
 		placeholder
 		required
 	/>
-	<label for="floatingPassword">🔏 Подтверждение пароля</label>
+	<label for="floatingPassword">
+		@emoji("🔏") {
+			Подтверждение пароля
+		}
+	</label>
 }
 
 templ extraStylePassword() {
@@ -62,7 +74,11 @@ templ Register(v *View, m Map) {
 			hx-select="#auth_form"
 			enctype="multipart/form-data"
 		>
-			<h1 class="h3 mb-3 fw-normal">🆕 Регистрация</h1>
+			<h1 class="h3 mb-3 fw-normal">
+				@emoji("🆕") {
+					Регистрация
+				}
+			</h1>
 			@formFields(
 				emailField(m),
 				authorityField(m),
@@ -74,7 +90,9 @@ templ Register(v *View, m Map) {
 				class={ authButtonClass() }
 				type="submit"
 			>
-				👤 Создать
+				@emoji("👤") {
+					Создать
+				}
 			</button>
 		</form>
 		@Token(v.CsrfToken())

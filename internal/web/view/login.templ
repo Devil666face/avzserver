@@ -32,7 +32,11 @@ templ emailField(m Map) {
 		required
 		autofocus
 	/>
-	<label>📧 Email</label>
+	<label>
+		@emoji("📧") {
+			Email
+		}
+	</label>
 }
 
 templ passwordField() {
@@ -45,7 +49,11 @@ templ passwordField() {
 			placeholder
 			required
 		/>
-		<label>🔒 Пароль</label>
+		<label>
+			@emoji("🔒") {
+				Пароль
+			}
+		</label>
 	</div>
 }
 
@@ -58,8 +66,16 @@ templ Login(v *View, m Map) {
 		@FloatingAlert(m)
 		<div class="d-flex flex-column align-items-center">
 			<div class="text-center">
-				<h1 class="h3 mb-3 fw-normal">🚫🦠 Anti-virus bases</h1>
-				<h1 class="h3 mb-3 fw-normal">➡️ Войти</h1>
+				<h1 class="h3 mb-3 fw-normal">
+					@emoji("🚫☣️") {
+						Anti-virus bases
+					}
+				</h1>
+				<h1 class="h3 mb-3 fw-normal">
+					@emoji("➡️") {
+						Войти
+					}
+				</h1>
 			</div>
 			<form
 				hx-post={ v.URL("login") }
@@ -73,7 +89,9 @@ templ Login(v *View, m Map) {
 					class={ authButtonClass() }
 					type="submit"
 				>
-					➡️ Войти
+					@emoji("➡️") {
+						Войти
+					}
 				</button>
 				<button
 					class={ authButtonClass() }
@@ -83,7 +101,9 @@ templ Login(v *View, m Map) {
 					hx-target="#auth_form"
 					hx-select="#auth_form"
 				>
-					🆕 Регистрация
+					@emoji("🆕") {
+						Регистрация
+					}
 				</button>
 			</form>
 			@Token(v.CsrfToken())

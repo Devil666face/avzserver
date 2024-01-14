@@ -1,6 +1,21 @@
 html,
 body {
   height: 100%;
+  font-family: 'JetBrains', sans-serif;
+}
+
+.emoji {
+  font-family: 'Noto Color Emoji', sans-serif;
+}
+
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('/static/fonts/NotoColorEmoji-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'JetBrains';
+  src: url('/static/fonts/JetBrainsMono-Regular.ttf') format('truetype');
 }
 
 .form-user .form-floating:focus-within,

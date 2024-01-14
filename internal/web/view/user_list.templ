@@ -13,7 +13,9 @@ templ UserList(v *View, m Map) {
 					hx-swap="innerHTML"
 					hx-target="#create_user_content"
 				>
-					🙍‍♂️ Создать пользователя 
+					@emoji("👤") {
+						Создать пользователя
+					}
 				</button>
 			</div>
 		</div>

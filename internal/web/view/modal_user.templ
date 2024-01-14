@@ -4,9 +4,13 @@ templ ModalUser(v *View, m Map) {
 	<div class="modal-header">
 		<h1 class="modal-title fs-5" id="staticBackdropLabel">
 			if v.IsURL("user_create") {
-				🙍‍♂️ Создать пользователя
+				@emoji("👤") {
+					Создать пользователя
+				}
 			} else {
-				📝 Изменить пользователя { m.getUser().Email }
+				@emoji("✏️") {
+					Изменить пользователя { m.getUser().Email }
+				}
 			}
 		</h1>
 		<button
@@ -25,7 +29,9 @@ templ ModalUser(v *View, m Map) {
 templ ModalCommonUser(v *View, m Map) {
 	<div class="modal-header">
 		<h1 class="modal-title fs-5" id="staticBackdropLabel">
-			📝 { v.CurrentUser().Email } - изменить
+			@emoji("✏️") {
+				{ v.CurrentUser().Email } - редактирование
+			}
 		</h1>
 		<button
 			type="button"

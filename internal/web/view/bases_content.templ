@@ -16,7 +16,9 @@ templ BasesContent(v *View, m Map) {
 				hx-target="#bases"
 				hx-push-url="true"
 			>
-				🔙 Назад
+				@emoji("🔙") {
+					Назад
+				}
 			</button>
 		}
 		<table class="table">
@@ -48,7 +50,9 @@ templ BasesContent(v *View, m Map) {
 									hx-target="#bases"
 									hx-push-url="true"
 								>
-									{ getEmojiIcon(f) } { f.Name }
+									@emoji(getEmojiIcon(f)) {
+										{ f.Name }
+									}
 								</button>
 							} else {
 								<a
@@ -59,7 +63,9 @@ templ BasesContent(v *View, m Map) {
 										class="btn btn-outline-success"
 									}
 								>
-									{ getEmojiIcon(f) } { f.Name }
+									@emoji(getEmojiIcon(f)) {
+										{ f.Name }
+									}
 								</a>
 							}
 						</td>
