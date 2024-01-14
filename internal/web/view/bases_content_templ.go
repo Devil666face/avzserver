@@ -165,7 +165,7 @@ func BasesContent(v *View, m Map) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			if f.IsDir {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"button\" class=\"btn btn-outline-primary\" hx-get=\"")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button type=\"button\" class=\"btn btn-outline-primary no-wrap\" hx-get=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -220,12 +220,12 @@ func BasesContent(v *View, m Map) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				if strings.HasSuffix(f.Name, ".md5") {
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"btn btn-outline-secondary\"")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"btn btn-outline-secondary no-wrap\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
 				} else {
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"btn btn-outline-success\"")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"btn btn-outline-success no-wrap\"")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

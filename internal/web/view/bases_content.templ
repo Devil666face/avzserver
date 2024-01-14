@@ -44,7 +44,7 @@ templ BasesContent(v *View, m Map) {
 							if f.IsDir {
 								<button
 									type="button"
-									class="btn btn-outline-primary"
+									class="btn btn-outline-primary no-wrap"
 									hx-get={ f.Href }
 									hx-swap="innerHTML"
 									hx-target="#bases"
@@ -58,9 +58,9 @@ templ BasesContent(v *View, m Map) {
 								<a
 									href={ templ.SafeURL(f.Href) }
 									if strings.HasSuffix(f.Name,".md5") {
-										class="btn btn-outline-secondary"
+										class="btn btn-outline-secondary no-wrap"
 									} else {
-										class="btn btn-outline-success"
+										class="btn btn-outline-success no-wrap"
 									}
 								>
 									@emoji(getEmojiIcon(f)) {

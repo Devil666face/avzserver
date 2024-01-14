@@ -63,3 +63,7 @@ body {
 .icon-text {
   margin-left: 10px;
 }
+
+.no-wrap {
+  white-space: nowrap;
+}
