@@ -19,8 +19,7 @@ import (
 )
 
 type Web struct {
-	fiber *fiber.App
-	// static    func(*fiber.Ctx) error
+	fiber     *fiber.App
 	media     *Media
 	config    *config.Config
 	database  *database.Database
@@ -35,11 +34,10 @@ func New() *Web {
 	a := &Web{
 		fiber: fiber.New(
 			fiber.Config{
-				AppName:      "avzserver",
-				ErrorHandler: handlers.DefaultErrorHandler,
+				ErrorHandler:          handlers.DefaultErrorHandler,
+				DisableStartupMessage: true,
 			},
 		),
-		// static:    NewStatic(),
 		media:     MustMedia(),
 		config:    config.Must(),
 		validator: validators.New(),
