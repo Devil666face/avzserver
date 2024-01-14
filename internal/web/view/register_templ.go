@@ -258,7 +258,7 @@ func Register(v *View, m Map) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\" hx-target=\"#auth_form\" hx-select=\"#auth_form\" enctype=\"multipart/form-data\"><h1 class=\"h3 mb-3 fw-normal\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"outerHTML\" hx-target=\"#auth_form\" hx-select=\"#auth_form\" enctype=\"multipart/form-data\"><h1 class=\"h3 mb-3 fw-normal text-success\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

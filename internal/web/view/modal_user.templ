@@ -2,7 +2,7 @@ package view
 
 templ ModalUser(v *View, m Map) {
 	<div class="modal-header">
-		<h1 class="modal-title fs-5" id="staticBackdropLabel">
+		<h1 class="modal-title fs-5 text-primary" id="staticBackdropLabel">
 			if v.IsURL("user_create") {
 				@emoji("👤") {
 					Создать пользователя
@@ -28,7 +28,7 @@ templ ModalUser(v *View, m Map) {
 
 templ ModalCommonUser(v *View, m Map) {
 	<div class="modal-header">
-		<h1 class="modal-title fs-5" id="staticBackdropLabel">
+		<h1 class="modal-title fs-5 text-primary" id="staticBackdropLabel">
 			@emoji("✏️") {
 				{ v.CurrentUser().Email } - редактирование
 			}
