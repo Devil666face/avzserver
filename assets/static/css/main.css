@@ -5,12 +5,12 @@ body {
 }
 
 .emoji {
-  font-family: 'Noto Color Emoji', sans-serif;
+  font-family: 'Emoji', sans-serif;
 }
 
 @font-face {
-  font-family: 'Noto Color Emoji';
-  src: url('/static/fonts/NotoColorEmoji-Regular.ttf') format('truetype');
+  font-family: 'Emoji';
+  src: url('/static/fonts/FirefoxEmoji.ttf') format('truetype');
 }
 
 @font-face {
