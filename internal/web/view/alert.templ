@@ -8,9 +8,9 @@ templ alertField(message, alertTypeClass, extraClass string) {
 	<div class={ getAlertClass(alertTypeClass) + extraClass } role="alert">
 		switch alertTypeClass {
 			case "alert-danger":
-				⚠️ 
+				@emoji("⚠️")
 			case "alert-success":
-				✅ 
+				@emoji("✅")
 		}
 		{ message }
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
